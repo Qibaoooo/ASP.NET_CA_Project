@@ -11,10 +11,17 @@
     <None Remove="Views\Gallery\" />
     <None Remove="Views\Login\" />
     <None Remove="Views\MyPurchases\" />
+    <None Remove="Database\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Gallery\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\MyPurchases\" />
+    <Folder Include="Database\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.11" />
   </ItemGroup>
 </Project>
