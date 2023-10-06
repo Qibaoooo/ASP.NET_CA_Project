@@ -13,7 +13,6 @@
     <None Remove="Views\MyPurchases\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Gallery\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\MyPurchases\" />
