@@ -7,18 +7,9 @@ namespace ASP.NET_CA_Project.Controllers
 {
     public class CartController : Controller
     {
-
-        private ShopDBContext db;
-
-        public CartController(ShopDBContext db)
-        {
-            this.db = db;
-        }
-
         // GET: /<controller>/
         public IActionResult Index()
         {
-            DBHelper.InjectTestData(db);
             return View();
         }
     }
