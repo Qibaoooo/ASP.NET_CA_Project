@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ASP.NET_CA_Project.Models
 {
-	public class Item
+    public class Item
     {
         public Item()
         {
