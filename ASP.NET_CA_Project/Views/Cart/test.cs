@@ -2,5 +2,6 @@
 {
     public class test
     {
+        public string Name;
     }
 }
