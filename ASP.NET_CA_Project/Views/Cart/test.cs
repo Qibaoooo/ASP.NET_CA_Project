@@ -2,6 +2,9 @@
 {
     public class test
     {
+
+        public string Name;
         //111111
+
     }
 }
