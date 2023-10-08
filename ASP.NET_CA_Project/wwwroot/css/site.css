@@ -1,4 +1,33 @@
-﻿html {
+﻿/* Override Bootstrap variables */
+:root {
+    /* Primary color (teal) */
+    --bs-primary: #008080;
+    /* Secondary color (optional) */
+    --bs-secondary: #6c757d;
+    /* Background color */
+    --bs-bg: #f8f9fa;
+    /* Text color */
+    --bs-text: #333;
+    /* Link color (optional) */
+    --bs-link: #008080;
+    /* Button color (optional) */
+    --bs-button-bg: #008080;
+    --bs-button-text: #fff;
+    /* ... Add more custom color variables as needed */
+}
+
+/* Apply the custom theme */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-button-text);
+}
+
+.navbar {
+    background-color: var(--bs-primary);
+}
+
+html {
   font-size: 14px;
 }
 

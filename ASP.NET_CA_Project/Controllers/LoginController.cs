@@ -11,8 +11,9 @@ namespace ASP.NET_CA_Project.Controllers
     public class LoginController : Controller
     {
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(bool isLoggedIn)
         {
+            ViewData["isLoggedIn"] = isLoggedIn;
             return View();
         }
     }
