@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASP.NET_CA_Project.Models
 {
-	public class PurchasedOrder
-	{
+    public class PurchasedOrder
+    {
         public PurchasedOrder()
         {
 
         }
 
         public PurchasedOrder(Item item, User user)
-		{
+        {
             Id = Guid.NewGuid();
             Item = item;
             User = user;
@@ -21,7 +21,7 @@ namespace ASP.NET_CA_Project.Models
             ActivationCode = Guid.NewGuid();
             
             DateTime = DateTime.Now;
-		}
+        }
 
         [Required]
         public Guid Id { get; set; }

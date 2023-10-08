@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASP.NET_CA_Project.Models
 {
-	public class Order
-	{
+    public class Order
+    {
         public Order()
         {
 
