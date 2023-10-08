@@ -28,6 +28,7 @@ namespace ASP.NET_CA_Project.Database
 
             foreach (var i in items)
             {
+                i.Image = "temp.jpg";
                 db.Add(i);
             }
             db.Add(user);
