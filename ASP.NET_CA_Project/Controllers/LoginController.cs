@@ -16,6 +16,29 @@ namespace ASP.NET_CA_Project.Controllers
             ViewData["isLoggedIn"] = isLoggedIn;
             return View();
         }
+
+        public IActionResult GuestContinue()
+        {
+            ViewData["isLoggedIn"] = false;
+            var obj = new
+            {
+                controller = "Gallery",
+                action = "Index"
+            };
+            return RedirectToRoute(obj);
+        }
+
+        public IActionResult Logout()
+        {
+            ViewData["isLoggedIn"] = false;
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult LoginWithCart()
+        {
+            //need more codes and logic
+            return RedirectToAction("Index");
+        }
     }
 }
 
