@@ -30,8 +30,13 @@ namespace ASP.NET_CA_Project.Models
         [Required]
         public string Description { get; set; }
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
+    }
+
+    public class ItemList
+    {
+        public List<Item> Items { get; set; }
     }
 }
 
