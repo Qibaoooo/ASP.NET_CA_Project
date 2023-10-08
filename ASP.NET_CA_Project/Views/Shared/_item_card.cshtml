@@ -1,0 +1,20 @@
+﻿@model ASP.NET_CA_Project.Models.Item;
+@* Checking for type of pages: Gallery, Cart, Purchased History *@
+@{
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+@{
+    <div class="col-md-4">
+        <div class="card h-100">
+            <img src="path-to-image2.jpg" class="card-img-top" alt="Product 1 Image">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ItemName</h5>
+                <p class="card-text">@Model.Description</p>
+                <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+}
+
