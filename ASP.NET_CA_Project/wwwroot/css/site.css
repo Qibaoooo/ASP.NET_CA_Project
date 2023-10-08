@@ -1,4 +1,8 @@
-﻿html {
+﻿.navbar {
+    background-color: var(--bs-primary);
+}
+
+html {
   font-size: 14px;
 }
 

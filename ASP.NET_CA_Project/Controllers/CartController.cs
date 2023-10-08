@@ -11,6 +11,28 @@ namespace ASP.NET_CA_Project.Controllers
         {
             return View();
         }
+        public IActionResult Checkout()
+        {
+            if ((string?)ViewData["isLoggedIn"] == "true")
+            {
+                var obj = new
+                {
+                    controller = "MyPurchases",
+                    action = "Index"
+                };
+                return RedirectToRoute(obj);
+            }
+            else
+            {
+                var obj = new
+                {
+                    controller = "Login",
+                    action = "LoginWithCart"
+                    //need more codes and logic
+                };
+                return RedirectToRoute(obj);
+            }
+        }
     }
 }
 
