@@ -2,16 +2,57 @@
     string controllerName = ViewContext.RouteData.Values["controller"].ToString();
     string head_msg = "Team 11 Library Shop";
     string btn1_msg = "Login";
-    string btn1_direction = "Login";
+    string btn1_controller = "Login";
+    string btn1_action = "Index";
     string btn2_msg = "My Purchases";
-    string btn2_direction = "MyPurchases";
+    string btn2_controller = "MyPurchases";
+    string btn2_action = "Index";
     if (controllerName == "Login")
     {
         head_msg = "Welcome to Team 11 Library Shop!";
         btn1_msg = "Continue as guest";
-        btn1_direction = "Gallery";
+        btn1_controller = "Login";
+        btn1_action = "GuestContinue";
         btn2_msg = "";
-        btn2_direction = "";
+        btn2_controller = "";
+    }
+    if (controllerName == "Gallery")
+    {
+        if ((string?)ViewData["isLoggedIn"] == "true")
+        {
+            head_msg = "Hello, [UserName]";
+            btn1_msg = "My Purchases";
+            btn1_controller = "Mypurchases";
+            btn2_msg = "Logout";
+            btn2_controller = "Login";
+            btn2_action = "Logout";
+        }
+        else
+        {
+            head_msg = "Hello, Please Log In!";
+            btn1_msg = "Login";
+            btn1_controller = "Login";
+            btn2_msg = "";
+            btn2_controller = "";
+        }
+    }
+    if (controllerName == "Cart") 
+    {
+        head_msg = "View Cart";
+        btn1_msg = "Continue Shopping";
+        btn1_controller = "Gallery";
+        btn2_msg = "Checkout";
+        btn2_controller = "Cart";
+        btn2_action = "Checkout";
+    }
+    if (controllerName == "MyPurchases")
+    {
+        head_msg = "My Purchases";
+        btn1_msg = "Home";
+        btn1_controller = "Gallery";
+        btn2_msg = "Logout";
+        btn2_controller = "Login";
+        btn2_action = "Logout";
     }
 }
 <!DOCTYPE html>
@@ -32,7 +73,7 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-dark" 
             data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" >@head_msg</a>
+                <a class="navbar-brand" asp-area="">@head_msg</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
                         .navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -41,16 +82,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex">
                     <ul class="navbar-nav flex-grow-1  justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="@btn1_direction" asp-action="Index">@btn1_msg</a>
+                            <a class="nav-link" asp-area="" asp-controller="@btn1_controller" asp-action="@btn1_action">
+                                @btn1_msg</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="@btn2_direction" asp-action="Index">
+                            <a class="nav-link" asp-area="" asp-controller="@btn2_controller" asp-action="@btn2_action">
                                 @btn2_msg</a>
                         </li>
                         <li>
-                            <button class="btn btn-block">
-                                <i class="bi bi-cart"></i>
-                            </button>
+                            @{
+                                if (controllerName == "Gallery")
+                                {
+                                    <button class="btn btn-block">
+                                        <i class="bi bi-cart"></i>
+                                    </button>
+                                }
+                                if (controllerName == "Cart")
+                                {
+                                    //need javascript to calculate total
+                                    <button class="btn btn-block">Total:$0.00</button>
+                                }
+                            }
                         </li>
                     </ul>
                 </div>
