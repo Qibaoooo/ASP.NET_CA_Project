@@ -1,17 +1,24 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ASP.NET_CA_Project.Models
 {
 	public class Session
-	{
-		public Session(Guid sessionId)
-		{
-			this.Id = sessionId;
-			this.User = new User();
-		}
+    {
+        public Session()
+        {
+        }
 
-		public Guid Id { get; set; }
+        public Session(string sessionId)
+        {
+            this.Id = sessionId;
+        }
 
-		public virtual User User { get; set; }
+        [Key]
+		public string Id { get; set; }
+
+		public virtual Guid UserId { get; set; }
 	}
 }
 
