@@ -21,7 +21,13 @@ namespace ASP.NET_CA_Project.Controllers
         {
             List<Item> allItems = (List<Item>)db.Item.ToList();
             ViewBag.items = allItems;
-            ViewBag.itemCountInCart = 15;
+
+            List<Order> userOrders = GetUserOrders();
+            ViewBag.itemCountInCart = 0;
+            foreach (Order order in userOrders)
+            {
+                ViewBag.itemCountInCart = ViewBag.itemCountInCart + order.Count;
+            }
 
             return View();
         }
@@ -75,7 +81,6 @@ namespace ASP.NET_CA_Project.Controllers
 
             return Json(new { success = 1 });
         }
-
     }
 }
 
