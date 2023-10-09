@@ -23,6 +23,7 @@ namespace ASP.NET_CA_Project.Controllers
         {
             List<Item> allItems = (List<Item>)db.Item.ToList();
             ViewBag.items = allItems;
+            ViewBag.itemCountInCart = 15;
 
             return View();
         }
@@ -73,12 +74,21 @@ namespace ASP.NET_CA_Project.Controllers
                 return StatusCode(500, err);
             }
 
-            Order newOrder = new Order(item, sessionUser, 1);
+            // check if user has added this item before, if so, increment the count
+            Order? existingOrder = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
+            if (existingOrder != null)
+            {
+                existingOrder.Count++;
+            }
+            else
+            {
+                Order newOrder = new Order(item, sessionUser, 1);
+                db.Order.Add(newOrder);
+            }
 
-            db.Order.Add(newOrder);
             db.SaveChanges();
 
-            return Json(new { newOrderId = newOrder.Id });
+            return Json(new { success = 1 });
         }
 
     }

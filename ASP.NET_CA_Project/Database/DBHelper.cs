@@ -12,7 +12,7 @@ namespace ASP.NET_CA_Project.Database
         public DBHelper()
         {
         }
-
+        
         public static void InjectTestData(ShopDBContext db)
         {
 
