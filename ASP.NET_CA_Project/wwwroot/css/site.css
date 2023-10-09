@@ -3,26 +3,36 @@
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 /* This is to prevent our cards from going into the footer area */
 /* Can update this if there is a better way to style */
 #main-body {
     margin-bottom: 100px;
+}
+
+.badge {
+    font-size: 50%;
+    line-height: 1;
+    vertical-align: top;
+    position: relative;
+    top: -.5em;
+    left: -.5em;
+    background-color: var(--bs-secondary);
 }

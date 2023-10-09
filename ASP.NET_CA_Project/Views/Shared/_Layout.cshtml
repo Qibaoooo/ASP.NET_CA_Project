@@ -36,7 +36,7 @@
             btn2_controller = "";
         }
     }
-    if (controllerName == "Cart") 
+    if (controllerName == "Cart")
     {
         head_msg = "View Cart";
         btn1_msg = "Continue Shopping";
@@ -54,6 +54,8 @@
         btn2_controller = "Login";
         btn2_action = "Logout";
     }
+
+    int itemCountInCart = (ViewBag.itemCountInCart == null) ? 0 : ViewBag.itemCountInCart;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -61,17 +63,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Team 11 Library Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/bootswatchTheme.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ASP.NET_CA_Project.styles.css" asp-append-version="true" />
 </head>
 <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-dark" 
-            data-bs-theme="dark">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-dark"
+             data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand" asp-area="">@head_msg</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="
@@ -83,11 +85,13 @@
                     <ul class="navbar-nav flex-grow-1  justify-content-end">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="@btn1_controller" asp-action="@btn1_action">
-                                @btn1_msg</a>
+                                @btn1_msg
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="@btn2_controller" asp-action="@btn2_action">
-                                @btn2_msg</a>
+                                @btn2_msg
+                            </a>
                         </li>
                         <li>
                             @{
@@ -95,7 +99,14 @@
                                 {
                                     <button class="btn btn-block">
                                         <i class="bi bi-cart"></i>
+                                        @if (itemCountInCart > 0)
+                                        {
+                                            <span class="badge badge-pill badge-warning">
+                                                @itemCountInCart
+                                            </span>
+                                        }
                                     </button>
+
                                 }
                                 if (controllerName == "Cart")
                                 {
@@ -109,7 +120,7 @@
             </div>
         </nav>
     </header>
-    
+
 
     <div id="main-body" class="container">
         <main role="main" class="pb-3">
@@ -123,9 +134,9 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
