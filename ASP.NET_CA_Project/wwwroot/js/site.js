@@ -30,4 +30,23 @@ $(document).ready(function () {
             }
         });
     }
+
+    $(".btn-add-to-cart").click(function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        let itemId = $(this).attr("data-itemId");
+
+        $.ajax({
+            type: "POST",
+            url: "/Gallery/AddToCart",
+            data: { itemId: itemId },
+            success: function (response) {
+                console.log("Item added to cart successfully!");
+            },
+            error: function (xhr, status, error) {
+                console.error("Error adding item to cart:", error);
+            }
+        });
+    });
+
 });

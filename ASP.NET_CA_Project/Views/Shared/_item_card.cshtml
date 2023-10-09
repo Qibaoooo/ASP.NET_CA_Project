@@ -12,7 +12,9 @@
                 <h5 class="card-title">@Model.ItemName</h5>
                 <p class="card-text">@Model.Description</p>
                 <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <a href="#"
+                   class="btn btn-primary btn-add-to-cart"
+                   data-itemId=@Model.Id>Add to Cart</a>
             </div>
         </div>
     </div>

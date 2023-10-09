@@ -1,4 +1,5 @@
 ﻿using ASP.NET_CA_Project.Database;
+using ASP.NET_CA_Project.Middlewares;
 using ASP.NET_CA_Project.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSession();
 
 // Add DB context
 builder.Services.AddDbContext<ShopDBContext>(options => {
@@ -40,6 +43,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
+app.UseMiddleware<SessionTracker>();
 
 app.MapControllerRoute(
     name: "default",

@@ -13,6 +13,7 @@ namespace ASP.NET_CA_Project.Database
         public DbSet<Item> Item { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<PurchasedOrder> PurchasedOrder { get; set; }
+        public DbSet<Session> Sessions { get; set; }
     }
 }
 
