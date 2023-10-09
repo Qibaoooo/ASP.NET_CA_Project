@@ -34,6 +34,12 @@ namespace ASP.NET_CA_Project.Controllers
             User? sessionUser = db.User.FirstOrDefault(user => user.Id == session.UserId);
             return sessionUser;
         }
+
+        protected List<Order> GetUserOrders()
+        {
+            User? user = GetSessionUser();
+            return user.Orders.ToList();
+        }
     }
 }
 
