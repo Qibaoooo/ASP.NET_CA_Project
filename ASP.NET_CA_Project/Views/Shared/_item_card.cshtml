@@ -11,10 +11,19 @@
             <div class="card-body">
                 <h5 class="card-title">@Model.ItemName</h5>
                 <p class="card-text">@Model.Description</p>
-                <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
-                <a href="#"
-                   class="btn btn-primary btn-add-to-cart"
-                   data-itemId=@Model.Id>Add to Cart</a>
+                @switch  (controllerName)
+                {
+                    case "Gallery":
+                        <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
+                        break;
+                    case "MyPurchases":
+                        <a href="#" class="btn w-100" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);border: 1px solid #000;">Download</a>
+                        break;
+                    case "Cart":
+                        //Tong Chang add view here
+                        break;
+                }
+                <a href="#" class="btn btn-primary">Add to Cart</a>
             </div>
         </div>
     </div>
