@@ -10,14 +10,12 @@ using ASP.NET_CA_Project.Models;
 
 namespace ASP.NET_CA_Project.Controllers
 {
-    public class GalleryController : Controller
+    public class GalleryController : BaseController
     {
-        private readonly ShopDBContext db;
-
-        public GalleryController(ShopDBContext db)
+        public GalleryController(ShopDBContext db) : base(db)
         {
-            this.db = db;
         }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -50,20 +48,7 @@ namespace ASP.NET_CA_Project.Controllers
             }
 
             // Get the current session; we don't concern about user/guest for now
-            string _sessionId = HttpContext.Session.Id;
-            Session? session = db.Sessions.FirstOrDefault(sess => sess.Id == _sessionId);
-            if (session == null)
-            {
-                var err = new
-                {
-                    Message = "An internal server error occurred.",
-                    Details = "Session is not found in db. Check middleware logic and session db."
-                };
-                return StatusCode(500, err);
-            }
-
-            // Add new order to db. Does not matter if user is logged in or not.
-            User? sessionUser = db.User.FirstOrDefault(user => user.Id == session.UserId);
+            User? sessionUser = GetSessionUser();
             if (sessionUser == null)
             {
                 var err = new
