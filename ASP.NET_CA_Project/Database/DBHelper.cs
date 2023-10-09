@@ -18,15 +18,17 @@ namespace ASP.NET_CA_Project.Database
             // List all the Mock Products
             string itemsJsonFile = "Database/MockData/MockProducts.json";
             dynamic itemList = getItemList(itemsJsonFile);
+            AddMockItems(db, itemList);
+
             // List all the Mock Users
             string userJsonFile = "Database/MockData/MockUser.json";
             dynamic userList = getItemList(userJsonFile);
+            AddMockUsers(db, userList);
+
             // Created Mock Purchased Orders
+            AddMockPurchasedOrder(db);
 
 
-            AddMockItems(db, itemList);
-
-            AddMockUsers(db,userList);
 
             // add users with orders
             User userWithOrders = new User(userName: "Murakami Haruki", password: "123123");
@@ -84,8 +86,14 @@ namespace ASP.NET_CA_Project.Database
         }
 
         private static void AddMockPurchasedOrder(ShopDBContext db) {
+            User currentuser = db.User.First();
+            
+            for (int i= 0;  i < 3; i++) {
+                PurchasedOrder purchasedorder = new PurchasedOrder(item: db.Item.Skip(i).First(), user: currentuser);
+                db.Add(purchasedorder);
+            }
+            db.SaveChanges();
         }
-
     }
 }
 

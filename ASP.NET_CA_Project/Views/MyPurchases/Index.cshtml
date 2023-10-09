@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "My Purchases";
+    List<PurchasedOrder> purchasedorders = ViewBag.PurchasedOrders;
+    List<Item> items = ViewBag.items;
 }
 
 <div class="text-center">
@@ -8,5 +10,11 @@
 
 
 @{
+    foreach (PurchasedOrder purchaseorder in purchasedorders)
+    {
+        <div class="">
+        
+        </div>
     
+    }
 }
