@@ -10,19 +10,38 @@ using ASP.NET_CA_Project.Models;
 
 namespace ASP.NET_CA_Project.Controllers
 {
-    public class MyPurchasesController : Controller
+    public class MyPurchasesController : BaseController
     {
-        private readonly ShopDBContext db;
-        public MyPurchasesController(ShopDBContext db)
+        
+        public MyPurchasesController(ShopDBContext db): base(db)
         {
-            this.db = db;
         }
         // GET: /<controller>/
-        public IActionResult Index(string userId)
+        public IActionResult Index(Guid? userId)
         {
-            List<PurchasedOrder> PurchasedOrders = db.PurchasedOrder.ToList<PurchasedOrder>();
+            // Reminder to add in condition if userId is null
+            List<PurchasedOrder> AllPurchasedOrders = db.PurchasedOrder.ToList<PurchasedOrder>();
+            //var userPurchasedOrders = from order in PurchasedOrders
+            //                            where order.User.Id == userId
+            //                            select order;
+
+            var purchasedorders = from order in AllPurchasedOrders
+                                  group order by order.Item.Id into grouped
+                                  select new
+                                  {
+                                      Item = grouped.First().Item,
+                                      DateTime = grouped.First().DateTime,
+                                      Quantity = grouped.Count(),
+                                      ActivationCodes = grouped.Select(p => p.ActivationCode).ToList()
+                                  };
+
+            ViewBag.grouporders = purchasedorders;
+            ViewBag.userpurchasedorders = AllPurchasedOrders; 
             
             return View();
+            
+            // Ridirect to Login Page
+            //return Content(""); 
         }
     }
 }
