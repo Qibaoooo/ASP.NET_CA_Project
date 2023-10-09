@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using ASP.NET_CA_Project.Models;
+using System.Text.Json;
+
 namespace ASP.NET_CA_Project.Database
 {
     public class DBHelper
@@ -11,45 +15,75 @@ namespace ASP.NET_CA_Project.Database
 
         public static void InjectTestData(ShopDBContext db)
         {
-            List<Item> items = GetItems();
-            Item item = items[0];
 
-            User user = new User(userName: "Murakami", password: "123123");
-            User userWithOrders = new User(userName: "Haruki", password: "123123");
+            AddMockItems(db);
+
+            AddMockUsers(db);
+
+            // add users with orders
+            User userWithOrders = new User(userName: "Murakami Haruki", password: "123123");
             User userWithPurchasedOrders = new User(userName: "Kafka", password: "123123");
 
             userWithOrders.Orders = new List<Order> { new
-                Order(item: item, user: userWithOrders, count:5)};
+                Order(item: db.Item.First(), user: userWithOrders, count:5)};
 
             userWithPurchasedOrders.PurchasedOrders = new List<PurchasedOrder> { new
-                PurchasedOrder(item: item, user: userWithPurchasedOrders)};
+                PurchasedOrder(item: db.Item.First(), user: userWithPurchasedOrders)};
 
-
-
-            foreach (var i in items)
-            {
-                db.Add(i);
-            }
-            db.Add(user);
             db.Add(userWithOrders);
             db.Add(userWithPurchasedOrders);
 
             db.SaveChanges();
         }
 
-        private static List<Item> GetItems()
+        private static void AddMockItems(ShopDBContext db)
         {
-            List<Item> items = new List<Item> {
-                new Item(itemName: ".NET Charts", price: 99, description: "Brings powerful charting capabilities to your .NET applications"),
-                new Item(itemName: ".NET PayPal", price: 69, description: "Integrate your .NET apps with PayPal the easy way!"),
-                new Item(itemName: ".NET ML", price: 299, description: "Supercharged .NET machine learning libraries."),
-                new Item(itemName: ".NET Analytics", price: 299, description: "Performs data mining and analytics easily in .NET"),
-                new Item(itemName: ".NET Logger", price: 49, description: "Logs and aggregates events easily in your .NET apps"),
-                new Item(itemName: ".NET Numerics", price: 199, description: "Powerful numerical methods for your .NET simulations")
-            };
+            string itemsJsonFile = "Database/MockData/MockProducts.json";
 
-            return items;
+            string itemsJson = File.ReadAllText(itemsJsonFile);
+
+            dynamic itemList = JsonSerializer.Deserialize<dynamic>(itemsJson);
+
+            foreach (var item in itemList.EnumerateArray())
+            {
+                string itemName = item.GetProperty("productName").GetString();
+                string description = item.GetProperty("description").GetString();
+                float price = (float)item.GetProperty("price").GetDouble();
+
+                Item newItem = new Item(itemName, price, description);
+
+                // replace with this once we get proper image names
+                //newItem.Image = item.GetProperty("imageUrl").GetString();
+                newItem.Image = "temp.jpg";
+
+                db.Add(newItem);
+            }
+
+            db.SaveChanges();
         }
+
+        private static void AddMockUsers(ShopDBContext db)
+        {
+            string itemsJsonFile = "Database/MockData/MockUser.json";
+
+            string itemsJson = File.ReadAllText(itemsJsonFile);
+
+            dynamic itemList = JsonSerializer.Deserialize<dynamic>(itemsJson);
+
+            foreach (var item in itemList.EnumerateArray())
+            {
+                string userName = item.GetProperty("userName").GetString();
+                string password = item.GetProperty("password").GetString();
+
+                User newUser= new User(userName, password);
+
+                db.Add(newUser);
+            }
+
+            db.SaveChanges();
+
+        }
+
     }
 }
 

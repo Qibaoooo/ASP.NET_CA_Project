@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* This is to prevent our cards from going into the footer area */
+/* Can update this if there is a better way to style */
+#main-body {
+    margin-bottom: 100px;
+}

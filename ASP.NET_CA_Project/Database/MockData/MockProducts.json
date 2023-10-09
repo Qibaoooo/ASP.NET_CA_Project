@@ -1,95 +1,92 @@
-{
-  "products": [
+[
     {
-      "productName": ".NET ML",
-      "description": "Supercharged .NET machine learning libraries.",
-      "price": 99,
-      "imageUrl": "https://example.com/path/to/image1.jpg"
+        "productName": ".NET ML",
+        "description": "Supercharged .NET machine learning libraries.",
+        "price": 99,
+        "imageUrl": "https://example.com/path/to/image1.jpg"
     },
     {
-      "productName": ".NET Analytics",
-      "description": "Performs data mining and analytics easily in .NET.",
-      "price": 299,
-      "imageUrl": "https://example.com/path/to/image2.jpg"
+        "productName": ".NET Analytics",
+        "description": "Performs data mining and analytics easily in .NET.",
+        "price": 299,
+        "imageUrl": "https://example.com/path/to/image2.jpg"
     },
     {
-      "productName": ".NET IoT",
-      "description": "Seamless integration with Internet of Things devices using .NET.",
-      "price": 159,
-      "imageUrl": "https://example.com/path/to/image3.jpg"
+        "productName": ".NET IoT",
+        "description": "Seamless integration with Internet of Things devices using .NET.",
+        "price": 159,
+        "imageUrl": "https://example.com/path/to/image3.jpg"
     },
     {
-      "productName": ".NET Blockchain",
-      "description": "Develop decentralized applications using .NET with ease.",
-      "price": 399,
-      "imageUrl": "https://example.com/path/to/image4.jpg"
+        "productName": ".NET Blockchain",
+        "description": "Develop decentralized applications using .NET with ease.",
+        "price": 399,
+        "imageUrl": "https://example.com/path/to/image4.jpg"
     },
     {
-      "productName": ".NET VR",
-      "description": "Virtual Reality development toolkit for .NET.",
-      "price": 349,
-      "imageUrl": "https://example.com/path/to/image5.jpg"
+        "productName": ".NET VR",
+        "description": "Virtual Reality development toolkit for .NET.",
+        "price": 349,
+        "imageUrl": "https://example.com/path/to/image5.jpg"
     },
     {
-      "productName": ".NET AR",
-      "description": "Augmented Reality development tools made for .NET.",
-      "price": 349,
-      "imageUrl": "https://example.com/path/to/image6.jpg"
+        "productName": ".NET AR",
+        "description": "Augmented Reality development tools made for .NET.",
+        "price": 349,
+        "imageUrl": "https://example.com/path/to/image6.jpg"
     },
     {
-      "productName": ".NET Cloud",
-      "description": "Simplified cloud integrations and operations using .NET.",
-      "price": 199,
-      "imageUrl": "https://example.com/path/to/image7.jpg"
+        "productName": ".NET Cloud",
+        "description": "Simplified cloud integrations and operations using .NET.",
+        "price": 199,
+        "imageUrl": "https://example.com/path/to/image7.jpg"
     },
     {
-      "productName": ".NET Security",
-      "description": "Advanced security protocols and measures for .NET applications.",
-      "price": 259,
-      "imageUrl": "https://example.com/path/to/image8.jpg"
+        "productName": ".NET Security",
+        "description": "Advanced security protocols and measures for .NET applications.",
+        "price": 259,
+        "imageUrl": "https://example.com/path/to/image8.jpg"
     },
     {
-      "productName": ".NET Gaming",
-      "description": "Game development made simpler in the .NET ecosystem.",
-      "price": 299,
-      "imageUrl": "https://example.com/path/to/image9.jpg"
+        "productName": ".NET Gaming",
+        "description": "Game development made simpler in the .NET ecosystem.",
+        "price": 299,
+        "imageUrl": "https://example.com/path/to/image9.jpg"
     },
     {
-      "productName": ".NET AI",
-      "description": "Harness the power of Artificial Intelligence in your .NET applications.",
-      "price": 349,
-      "imageUrl": "https://example.com/path/to/image10.jpg"
+        "productName": ".NET AI",
+        "description": "Harness the power of Artificial Intelligence in your .NET applications.",
+        "price": 349,
+        "imageUrl": "https://example.com/path/to/image10.jpg"
     },
     {
-      "productName": ".NET Database",
-      "description": "Optimized database operations and management for .NET.",
-      "price": 179,
-      "imageUrl": "https://example.com/path/to/image11.jpg"
+        "productName": ".NET Database",
+        "description": "Optimized database operations and management for .NET.",
+        "price": 179,
+        "imageUrl": "https://example.com/path/to/image11.jpg"
     },
     {
-      "productName": ".NET Web",
-      "description": "Web development libraries and tools streamlined for .NET.",
-      "price": 129,
-      "imageUrl": "https://example.com/path/to/image12.jpg"
+        "productName": ".NET Web",
+        "description": "Web development libraries and tools streamlined for .NET.",
+        "price": 129,
+        "imageUrl": "https://example.com/path/to/image12.jpg"
     },
     {
-      "productName": ".NET Mobile",
-      "description": "Crafting mobile applications using .NET has never been easier.",
-      "price": 229,
-      "imageUrl": "https://example.com/path/to/image13.jpg"
+        "productName": ".NET Mobile",
+        "description": "Crafting mobile applications using .NET has never been easier.",
+        "price": 229,
+        "imageUrl": "https://example.com/path/to/image13.jpg"
     },
     {
-      "productName": ".NET Crypto",
-      "description": "Crypto algorithms and operations integrated into the .NET environment.",
-      "price": 289,
-      "imageUrl": "https://example.com/path/to/image14.jpg"
+        "productName": ".NET Crypto",
+        "description": "Crypto algorithms and operations integrated into the .NET environment.",
+        "price": 289,
+        "imageUrl": "https://example.com/path/to/image14.jpg"
     },
     {
-      "productName": ".NET Network",
-      "description": "Enhanced networking tools and libraries for .NET developers.",
-      "price": 149,
-      "imageUrl": "https://example.com/path/to/image15.jpg"
+        "productName": ".NET Network",
+        "description": "Enhanced networking tools and libraries for .NET developers.",
+        "price": 149,
+        "imageUrl": "https://example.com/path/to/image15.jpg"
     }
-  ]
-
-}
+]
