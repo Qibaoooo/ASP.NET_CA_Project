@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using ASP.NET_CA_Project.Database;
 using ASP.NET_CA_Project.Models;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ASP.NET_CA_Project.Controllers
 {
@@ -16,7 +15,6 @@ namespace ASP.NET_CA_Project.Controllers
         {
         }
 
-        // GET: /<controller>/
         public IActionResult Index()
         {
             List<Item> allItems = (List<Item>)db.Item.ToList();
@@ -38,7 +36,7 @@ namespace ASP.NET_CA_Project.Controllers
             // An AddToCart must have itemId sent as data
             if (itemId == null)
             {
-                return Json(new { });
+                return Json(new { info = "must supply itemId." });
             }
 
             // Check if the itemId is valid
@@ -79,7 +77,7 @@ namespace ASP.NET_CA_Project.Controllers
 
             db.SaveChanges();
 
-            return Json(new { success = 1 });
+            return Json(new { info = "item added" });
         }
     }
 }
