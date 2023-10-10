@@ -42,6 +42,8 @@ $(document).ready(function () {
             data: { itemId: itemId },
             success: function (response) {
                 console.log("Item added to cart successfully!");
+                $('#cart-badge').html(parseInt($('#cart-badge').html(), 10) + 1)
+                $('#cart-badge').css('visibility', 'visible');
             },
             error: function (xhr, status, error) {
                 console.error("Error adding item to cart:", error);

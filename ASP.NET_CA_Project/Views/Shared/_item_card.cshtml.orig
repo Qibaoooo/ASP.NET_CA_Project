@@ -6,18 +6,21 @@
 
 @{
     <div class="col-md-4">
-        <div class="card h-100 text-center">
+        <div class="card h-100">
             <img src="~/image/temp.jpg" class="card-img-top" alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title">@Model.ItemName</h5>
                 <p class="card-text">@Model.Description</p>
+<<<<<<< HEAD
+                <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
+                <a href="#"
+                   class="btn btn-primary btn-add-to-cart"
+                   data-itemId=@Model.Id>Add to Cart</a>
+=======
                 @switch  (controllerName)
                 {
                     case "Gallery":
                         <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
-                        <a href="#"
-                           class="btn-add-to-cart btn btn-primary"
-                           data-itemId=@Model.Id>Add to Cart</a>
                         break;
                     case "MyPurchases":
                         <a href="#" class="btn w-100" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);border: 1px solid #000;">Download</a>
@@ -26,7 +29,8 @@
                         //Tong Chang add view here
                         break;
                 }
-                
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+>>>>>>> f8c1a9b (save before rebase)
             </div>
         </div>
     </div>

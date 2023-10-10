@@ -1,8 +1,106 @@
 ﻿@{
     ViewData["Title"] = "My Purchases";
+    List<PurchasedOrder> purchasedorders = ViewBag.userpurchasedorders;
+    List<Item> items = ViewBag.items;
+    var groupedorders = ViewBag.grouporders;
 }
 
 <div class="text-center">
     <h1 class="display-4">My Purchases</h1>
 </div>
 
+
+<div class="container">
+    @foreach (var purchaseorder in groupedorders)
+    {
+        <div class="row mt-4 align-items-center">
+            <div class="col-md-2"></div>
+            <partial name="_item_card" model="purchaseorder.Item" />
+            <div style="width: 0.1%;"></div>
+            <div class="col-md-5">
+                <table >
+                    <tr>
+                        <td>
+                            Purchased On:
+                        </td>
+
+                        <td>
+                            @purchaseorder.DateTime
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Quantity:
+                        </td>
+                        <td>
+                            @purchaseorder.Quantity
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Activation Code:
+                        </td>
+                        <td>
+                            <select class="form-control">
+                                @foreach (var code in purchaseorder.ActivationCodes)
+                                {
+                                    <option value="@code">@code</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    }
+
+
+</div>
+
+@* 
+<div class="containe text-center">
+    @foreach (PurchasedOrder purchaseorder in purchasedorders)
+    {
+        <div class="row mt-4 align-items-center">
+            <div class="col-md-3"></div>
+            <partial name="_item_card" model="purchaseorder.Item" />
+
+            <div class="col mt-4">
+                <table>
+                    <tr>
+                        <td>
+                            Purchased On:
+                        </td>
+                        <td>
+                            @purchaseorder.DateTime
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Quantity:
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Activation Code:
+                        </td>
+                        <td>
+                            e1234-123-erag-001
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    }
+
+
+</div>
+
+ *@

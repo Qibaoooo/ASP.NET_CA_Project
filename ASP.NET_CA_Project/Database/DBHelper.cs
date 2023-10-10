@@ -15,10 +15,20 @@ namespace ASP.NET_CA_Project.Database
         
         public static void InjectTestData(ShopDBContext db)
         {
+            // List all the Mock Products
+            string itemsJsonFile = "Database/MockData/MockProducts.json";
+            dynamic itemList = getItemList(itemsJsonFile);
+            AddMockItems(db, itemList);
 
-            AddMockItems(db);
+            // List all the Mock Users
+            string userJsonFile = "Database/MockData/MockUser.json";
+            dynamic userList = getItemList(userJsonFile);
+            AddMockUsers(db, userList);
 
-            AddMockUsers(db);
+            // Created Mock Purchased Orders
+            AddMockPurchasedOrder(db);
+
+
 
             // add users with orders
             User userWithOrders = new User(userName: "Murakami Haruki", password: "123123");
@@ -36,14 +46,8 @@ namespace ASP.NET_CA_Project.Database
             db.SaveChanges();
         }
 
-        private static void AddMockItems(ShopDBContext db)
-        {
-            string itemsJsonFile = "Database/MockData/MockProducts.json";
-
-            string itemsJson = File.ReadAllText(itemsJsonFile);
-
-            dynamic itemList = JsonSerializer.Deserialize<dynamic>(itemsJson);
-
+        private static void AddMockItems(ShopDBContext db, dynamic itemList)
+        { 
             foreach (var item in itemList.EnumerateArray())
             {
                 string itemName = item.GetProperty("productName").GetString();
@@ -58,18 +62,11 @@ namespace ASP.NET_CA_Project.Database
 
                 db.Add(newItem);
             }
-
             db.SaveChanges();
         }
 
-        private static void AddMockUsers(ShopDBContext db)
+        private static void AddMockUsers(ShopDBContext db, dynamic itemList)
         {
-            string itemsJsonFile = "Database/MockData/MockUser.json";
-
-            string itemsJson = File.ReadAllText(itemsJsonFile);
-
-            dynamic itemList = JsonSerializer.Deserialize<dynamic>(itemsJson);
-
             foreach (var item in itemList.EnumerateArray())
             {
                 string userName = item.GetProperty("userName").GetString();
@@ -79,11 +76,24 @@ namespace ASP.NET_CA_Project.Database
 
                 db.Add(newUser);
             }
-
             db.SaveChanges();
 
         }
 
+        private static dynamic getItemList(string JsonPath) {
+            string itemsJson = File.ReadAllText(JsonPath);
+            return JsonSerializer.Deserialize<dynamic>(itemsJson);
+        }
+
+        private static void AddMockPurchasedOrder(ShopDBContext db) {
+            User currentuser = db.User.First();
+            
+            for (int i= 0;  i < 3; i++) {
+                PurchasedOrder purchasedorder = new PurchasedOrder(item: db.Item.Skip(i).First(), user: currentuser);
+                db.Add(purchasedorder);
+            }
+            db.SaveChanges();
+        }
     }
 }
 
