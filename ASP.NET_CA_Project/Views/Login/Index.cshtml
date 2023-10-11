@@ -2,7 +2,34 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Login</h1>
-</div>
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container bg-white col-md-3 border rounded-4 ">
+        <div class="row">
+            <h2 class="text-center w-100">Member Login</h2>
+        </div>
 
+        <form>
+            <div class="mb-3 mt-2">
+                <div class="input-box d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    </svg>
+                    <input type="text" id="username" placeholder="Username" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-box d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill mr-2" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                    </svg>
+                    <input type="text" id="password" placeholder="Password" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center w-100 mb-3">
+                <button type="submit" class="btn bg-dark justify-content w-75">Login</button>
+            </div>
+        </form>
+        </>
+    </div>
