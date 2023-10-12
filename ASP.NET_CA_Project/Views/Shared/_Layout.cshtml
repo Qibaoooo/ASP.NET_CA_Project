@@ -105,15 +105,14 @@
                             @{
                                 if (controllerName == "Gallery")
                                 {
-                                    <button class="btn btn-block btn-lg">
-                                        <i class="bi bi-cart"></i>
-                                            <span class="badge badge-pill badge-warning"
-                                                  id="cart-badge"
-                                                  style="visibility: @(cartBadgeVisibitiy)">
-                                                @itemCountInCart
-                                            </span>
-                                    </button>
-
+                                    <button class="btn btn-block" onclick="navigateToCart()">
+                                            <i class="bi bi-cart"></i>
+                                                <span class="badge badge-pill badge-warning"
+                                                      id="cart-badge"
+                                                      style="visibility: @(cartBadgeVisibitiy)">
+                                                    @itemCountInCart
+                                                </span>
+                                        </button>
                                 }
                                 if (controllerName == "Cart")
                                 {
@@ -145,6 +144,11 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function navigateToCart() {
+            window.location.href = '@Url.Action("Index", "Cart")';
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
