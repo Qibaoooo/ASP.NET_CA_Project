@@ -64,7 +64,12 @@
         btn2_controller = "Login";
         btn2_action = "Logout";
     }
+
+    List<Order> orders = ViewBag.Orders;
+    int itemCountInCart = (ViewBag.itemCountInCart == null) ? 0 : ViewBag.itemCountInCart;
+    string cartBadgeVisibitiy= (itemCountInCart > 0) ? "visible" : "hidden";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,12 +117,22 @@
                                                       style="visibility: @(cartBadgeVisibitiy)">
                                                     @itemCountInCart
                                                 </span>
+<<<<<<< HEAD
                                         </button>
+=======
+                                    </button>
+
+>>>>>>> 5ec88e1 (Remove Item)
                                 }
                                 if (controllerName == "Cart")
                                 {
-                                    //need javascript to calculate total
-                                    <button class="btn btn-block">Total:$0.00</button>
+                                    float totalPrice = 0f;
+                                    foreach (var order in orders)
+                                    {
+                                        totalPrice = totalPrice + order.Item.Price * order.Count;
+                                    }
+                                        //need javascript to calculate total
+                                    <button class="btn btn-block">Total: @totalPrice.ToString("C")</button>
                                 }
                             }
                         </li>

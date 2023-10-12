@@ -19,28 +19,29 @@ namespace ASP.NET_CA_Project.Controllers
         {
             User currentUser = GetSessionUser();
             List<Order> allOrders = (List<Order>)db.Order.ToList();
-			//db.Order.Filter
 			List<Order> userOrders = allOrders.FindAll(Order => Order.User.Id == currentUser.Id);
-			//List<Item> orderItems = (from order in allOrders
-			// where order.User.Id == userID
-			//select order).ToList();
-
-			/*var userorder = from order in allOrders
-                            where order.User.Id == userID
-                            select order;*/
-
-			/*var orderItems = from order in userorder
-                             group order by order.Item.Id into itemgroup
-                             select new
-                             {
-                                 ItemName = itemgroup.First().Item.ItemName,
-                                 Quantity = itemgroup.First().Count,
-                                 Price = itemgroup.First().Item.Price * itemgroup.First().Count
-                             };*/
 
 			ViewBag.Orders = userOrders;
 
             return View();
+        }
+
+        public IActionResult RemoveItem(string itemId)
+        {
+            User? sessionUser = GetSessionUser();
+            if (sessionUser == null)
+            {
+                var err = new
+                {
+                    Message = "An internal server error occurred.",
+                    Details = "Current session has no user in db. Something is wrong."
+                };
+                return StatusCode(500, err);
+            }
+            Order? orderToDelete = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
+            db.Order.Remove(orderToDelete);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Checkout()

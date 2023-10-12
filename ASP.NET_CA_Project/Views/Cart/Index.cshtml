@@ -17,24 +17,19 @@
                 <table>
 					<tr>
 						<td>
-							Price:
+							Price: 
 						</td>
-						<td id="price">
-							@*<script>
-								var unitprice = parseFloat(@order.Item.Price);
-								var quantity = parseFloat(@order.Count);
-								var price = unitprice * quantity;
-								document.getElementById("price").innerText = price;
-							</script>*@
+						<td>
 							@(order.Item.Price * order.Count)
 						</td>
 					</tr>					
                     <tr>
 						<td>
-							Quantity:
+							Quantity: 
 						</td>
 						<td>
 							<input type="number" value="@order.Count" id="inputnum">
+                            @*@order.Count*@
 						</td>
                     </tr>
                 </table>
