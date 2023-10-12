@@ -36,3 +36,14 @@ body {
     left: -.5em;
     background-color: var(--bs-secondary);
 }
+
+.custom-login-btn {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    backface-visibility: hidden;
+}
+
+.custom-login-btn:hover {
+    background-color: #343a40; 
+    transform: scale(1.05) translateZ(0);
+    text-shadow: 0 0 1px currentColor; 
+}
