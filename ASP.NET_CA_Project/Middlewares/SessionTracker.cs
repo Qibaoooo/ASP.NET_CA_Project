@@ -33,7 +33,7 @@ namespace ASP.NET_CA_Project.Middlewares
                 User guest = new User();
                 newSession.UserId = guest.Id;
 
-                // and & save
+                // add & save
                 db.Add(guest);
                 db.Add(newSession);
                 db.SaveChanges();

@@ -9,8 +9,12 @@
         <div class="card h-100 text-center">
             <img src="~/image/temp.jpg" class="card-img-top" alt="Product Image">
             <div class="card-body">
-                <h5 class="card-title">@Model.ItemName</h5>
-                <p class="card-text">@Model.Description</p>
+                <h5 class="card-title">
+                    <u>
+                        @Model.ItemName
+                    </u>
+                </h5>
+                <p class="card-text" style="height: 90px">@Model.Description</p>
                 @switch (controllerName)
                 {
                     case "Gallery":
@@ -28,7 +32,6 @@
                         //Tong Chang add view here
                         break;
                 }
-
             </div>
         </div>
     </div>

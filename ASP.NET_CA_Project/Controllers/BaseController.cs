@@ -37,8 +37,35 @@ namespace ASP.NET_CA_Project.Controllers
 
         protected List<Order> GetUserOrders()
         {
+            // Get the list of unpaid orders of the current user.
             User? user = GetSessionUser();
             return user.Orders.ToList();
+        }
+
+        protected List<PurchasedOrder> GetUserPurchasedOrder()
+        {
+            // Get the list of paid orders of the current user.
+            User? user = GetSessionUser();
+            return user.PurchasedOrders.ToList();
+        }
+
+        protected bool IsUserLoggedIn()
+        {
+            User? user = GetSessionUser();
+            return (user.UserName != null);
+        }
+
+        protected void LoginUser(User user)
+        {
+            // call this method when the user supplies
+            // correct username and password.
+            Session? session = GetSession();
+
+            session.UserId = user.Id;
+
+            user.latestSession = session;
+
+            db.SaveChanges();
         }
     }
 }
