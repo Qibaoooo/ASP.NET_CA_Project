@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Cart";
     List<Order> orders = ViewBag.Orders;
-	List<>
 }
 
 <div class="text-center">
@@ -21,12 +20,13 @@
 							Price:
 						</td>
 						<td id="price">
-							<script>
-								var unitprice = @order.Item.Price;
-								var quantity = @order.Count;
+							@*<script>
+								var unitprice = parseFloat(@order.Item.Price);
+								var quantity = parseFloat(@order.Count);
 								var price = unitprice * quantity;
 								document.getElementById("price").innerText = price;
-							</script>
+							</script>*@
+							@(order.Item.Price * order.Count)
 						</td>
 					</tr>					
                     <tr>
@@ -34,7 +34,7 @@
 							Quantity:
 						</td>
 						<td>
-							@order.Count					
+							<input type="number" value="@order.Count" id="inputnum">
 						</td>
                     </tr>
                 </table>

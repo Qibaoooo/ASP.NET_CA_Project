@@ -17,15 +17,19 @@ namespace ASP.NET_CA_Project.Controllers
         // GET: /<controller>/
         public IActionResult Index(Guid? userID)
         {
+            User currentUser = GetSessionUser();
             List<Order> allOrders = (List<Order>)db.Order.ToList();
-            List<Item> orderItems = (from order in allOrders
-                                    select order.Item).ToList();
+			//db.Order.Filter
+			List<Order> userOrders = allOrders.FindAll(Order => Order.User.Id == currentUser.Id);
+			//List<Item> orderItems = (from order in allOrders
+			// where order.User.Id == userID
+			//select order).ToList();
 
-            /*var userorder = from order in allOrders
+			/*var userorder = from order in allOrders
                             where order.User.Id == userID
                             select order;*/
 
-            /*var orderItems = from order in userorder
+			/*var orderItems = from order in userorder
                              group order by order.Item.Id into itemgroup
                              select new
                              {
@@ -34,8 +38,7 @@ namespace ASP.NET_CA_Project.Controllers
                                  Price = itemgroup.First().Item.Price * itemgroup.First().Count
                              };*/
 
-            ViewBag.Orders = allOrders;
-            ViewBag.orderItems = orderItems;
+			ViewBag.Orders = userOrders;
 
             return View();
         }
