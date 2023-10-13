@@ -9,6 +9,8 @@
 
     string cartBadgeVisibitiy = (itemCountInCart > 0) ? "visible" : "hidden";
 
+    List<Order> orders = ViewBag.Orders;
+
     // Section for header logics
     string head_msg = "Team 11 Library Shop";
     string btn1_msg = "Login";
@@ -48,7 +50,7 @@
     }
     if (controllerName == "Cart")
     {
-        head_msg = "View Cart";
+        head_msg = "Cart";
         btn1_msg = "Continue Shopping";
         btn1_controller = "Gallery";
         btn2_msg = "Checkout";
@@ -64,7 +66,9 @@
         btn2_controller = "Login";
         btn2_action = "Logout";
     }
+
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,47 +109,60 @@
                             @{
                                 if (controllerName == "Gallery")
                                 {
-                                    <button class="btn btn-block btn-lg">
+                                    <button class="btn btn-block" onclick="navigateToCart()">
                                         <i class="bi bi-cart"></i>
-                                            <span class="badge badge-pill badge-warning"
-                                                  id="cart-badge"
-                                                  style="visibility: @(cartBadgeVisibitiy)">
-                                                @itemCountInCart
-                                            </span>
+                                        <span class="badge badge-pill badge-warning"
+                                              id="cart-badge"
+                                              style="visibility: @(cartBadgeVisibitiy)">
+                                            @itemCountInCart
+                                        </span>
                                     </button>
-
                                 }
                                 if (controllerName == "Cart")
                                 {
+                                    float totalPrice = 0f;
+                                    foreach (var order in orders)
+                                    {
+                                        totalPrice = totalPrice + order.Item.Price * order.Count;
+                                    }
                                     //need javascript to calculate total
-                                    <button class="btn btn-block">Total:$0.00</button>
-                                }
-                            }
-                        </li>
-                    </ul>
-                </div>
+                                    <h6 style="padding-left: 20px;">
+                                        <u>
+                                            Total: @totalPrice.ToString("C")
+                                        </u>
+                                    </h6>
+                                    }
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+
+            <div id="main-body" class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
             </div>
-        </nav>
-    </header>
 
-
-    <div id="main-body" class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Team 11 Library Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2023 - Team 11 Library Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                    crossorigin="anonymous"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script>
+        function navigateToCart() {
+            window.location.href = '@Url.Action("Index", "Cart")';
+        }
+            </script>
+            @await RenderSectionAsync("Scripts", required: false)
+        </body>
+    </html>
 

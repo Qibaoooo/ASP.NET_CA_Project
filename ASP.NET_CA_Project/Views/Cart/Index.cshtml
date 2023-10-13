@@ -1,8 +1,50 @@
 ﻿@{
     ViewData["Title"] = "Cart";
+    List<Order> orders = ViewBag.Orders;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Cart</h1>
-</div>
 
+<div class="container">
+    @if (orders.Count == 0)
+    {
+        <div class="text-center pt-6">
+            <h4>Such emptiness. Please add some items from gallery.</h4>
+        </div>
+    }
+    @foreach (var order in orders)
+    {
+        var i = 0;
+        <div class="row mt-4 align-items-center">
+            <div class="col-md-2"></div>
+            <partial name="_item_card" model="order.Item" />
+            <div style="width: 0.1%;"></div>
+            <div class="col-md-5">
+                <table>
+                    <tr>
+                        <td>
+                            Price:
+                        </td>
+                        <td>
+                            @((order.Item.Price * order.Count).ToString("C"))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Quantity:
+                        </td>
+                        <td>
+                            <input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999" class="count">
+                            @*@order.Count*@
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+        i = i + 1;
+    }
+
+
+</div>
+<script src="~/js/cartnumberinput.js"></script>
