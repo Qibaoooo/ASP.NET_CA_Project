@@ -9,6 +9,8 @@ namespace ASP.NET_CA_Project.Models
         {
             // Guest will use this constructor
             Id = Guid.NewGuid();
+            Orders = new List<Order>();
+            PurchasedOrders = new List<PurchasedOrder>();
         }
 
         public User(string userName, string password)
@@ -17,6 +19,8 @@ namespace ASP.NET_CA_Project.Models
             Id = Guid.NewGuid();
             UserName = userName;
             Password = password;
+            Orders = new List<Order>();
+            PurchasedOrders = new List<PurchasedOrder>();
         }
 
         [Required]

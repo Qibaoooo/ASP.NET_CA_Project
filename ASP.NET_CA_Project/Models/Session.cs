@@ -13,12 +13,13 @@ namespace ASP.NET_CA_Project.Models
         public Session(string sessionId)
         {
             this.Id = sessionId;
+            UserId = "";
         }
 
         [Key]
 		public string Id { get; set; }
 
-		public virtual Guid UserId { get; set; }
+		public string UserId { get; set; }
 	}
 }
 

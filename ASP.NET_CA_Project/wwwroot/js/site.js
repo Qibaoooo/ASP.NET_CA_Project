@@ -11,13 +11,6 @@ $(document).ready(function () {
         }
     });
 
-
-    $("#LoginForm").on("submit", function (e){
-        e.preventDefault();
-        //Calling login action method
-        console.log("Login Clicked");
-    }
-
     function refreshCards(searchTerm) {
         $("#item-cards").children().each(function (index, element) {
             // for each item card, we check if
@@ -58,4 +51,31 @@ $(document).ready(function () {
         });
     });
 
+    $("#LoginForm").submit(function (e) {
+        e.preventDefault();
+
+        let username = $("#username").val();
+        let password = $("#password").val();
+        console.log("Login Clicked");
+        console.log(username);
+        console.log(password);
+        //Calling login action method
+
+        $.ajax({
+            type: "POST",
+            url: "/Login/UserLogin",
+            data:
+            {
+                userName: username,
+                password: password
+            },
+            success: function (response) {
+                console.log("Login success!");
+                window.location.href = "/Gallery/Index";
+            },
+            error: function (xhr, status, error) {
+                console.error("Login falied:", error);
+            }
+        });
+    });
 });

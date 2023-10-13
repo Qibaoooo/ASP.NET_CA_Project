@@ -16,16 +16,12 @@ namespace ASP.NET_CA_Project.Controllers
         public MyPurchasesController(ShopDBContext db): base(db)
         {
         }
-        // GET: /<controller>/
+        
         public IActionResult Index(Guid? userId)
         {
-            // Reminder to add in condition if userId is null
-            List<PurchasedOrder> AllPurchasedOrders = db.PurchasedOrder.ToList<PurchasedOrder>();
-            //var userPurchasedOrders = from order in PurchasedOrders
-            //                            where order.User.Id == userId
-            //                            select order;
+            List<PurchasedOrder> AllPurchasedOrders = GetUserPurchasedOrders();
 
-            var purchasedorders = from order in AllPurchasedOrders
+            var groupedOrders = from order in AllPurchasedOrders
                                   group order by order.Item.Id into grouped
                                   select new
                                   {
@@ -35,13 +31,9 @@ namespace ASP.NET_CA_Project.Controllers
                                       ActivationCodes = grouped.Select(p => p.ActivationCode).ToList()
                                   };
 
-            ViewBag.grouporders = purchasedorders;
-            ViewBag.userpurchasedorders = AllPurchasedOrders; 
-            
+            ViewBag.groupedOrders = groupedOrders;
+
             return View();
-            
-            // Ridirect to Login Page
-            //return Content(""); 
         }
     }
 }

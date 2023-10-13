@@ -11,6 +11,7 @@ namespace ASP.NET_CA_Project.Controllers
         {
             return View();
         }
+
         public IActionResult Checkout()
         {
             if ((string?)ViewData["isLoggedIn"] == "true")
@@ -33,6 +34,8 @@ namespace ASP.NET_CA_Project.Controllers
                 return RedirectToRoute(obj);
             }
         }
+
+
     }
 }
 

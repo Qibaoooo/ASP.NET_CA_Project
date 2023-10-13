@@ -19,39 +19,64 @@ namespace ASP.NET_CA_Project.Controllers
             this.db = db;
         }
 
-        protected Session? GetSession()
+        protected Session GetSession()
         {
             // Get the current session
             string _sessionId = HttpContext.Session.Id;
             Session? session = db.Sessions.FirstOrDefault(sess => sess.Id == _sessionId);
+            if (session == null)
+            {
+                throw new Exception("Session err, check SessionTracker middleware.");
+            }
             return session;
         }
 
-        protected User? GetSessionUser()
+        protected User GetSessionUser()
         {
             // Get the user instance of the current user.
-            Session? session = GetSession();
-            User? sessionUser = db.User.FirstOrDefault(user => user.Id == session.UserId);
+            // It can be either loged-in user or a guest.
+            // We don't care about it at this stage.
+            Session session = GetSession();
+            User? sessionUser = db.User.FirstOrDefault(user => user.Id.ToString() == session.UserId);
+            if (sessionUser == null)
+            {
+                throw new Exception("Session err, all sessions must have valid session user.");
+            }
             return sessionUser;
         }
 
         protected List<Order> GetUserOrders()
         {
             // Get the list of unpaid orders of the current user.
-            User? user = GetSessionUser();
-            return user.Orders.ToList();
+            User user = GetSessionUser();
+            if (user.Orders != null)
+            {
+                return user.Orders.ToList();
+            }
+            else
+            {
+                return new List<Order>();
+            }
         }
 
-        protected List<PurchasedOrder> GetUserPurchasedOrder()
+        protected List<PurchasedOrder> GetUserPurchasedOrders()
         {
             // Get the list of paid orders of the current user.
-            User? user = GetSessionUser();
-            return user.PurchasedOrders.ToList();
+            User user = GetSessionUser();
+            if (user.PurchasedOrders != null)
+            {
+                return user.PurchasedOrders.ToList();
+            }
+            else
+            {
+                return new List<PurchasedOrder>();
+            }
+
         }
 
-        protected bool IsUserLoggedIn()
+        protected bool IsSessionUserLoggedIn()
         {
-            User? user = GetSessionUser();
+            User user = GetSessionUser();
             return (user.UserName != null);
         }
 
@@ -59,9 +84,9 @@ namespace ASP.NET_CA_Project.Controllers
         {
             // call this method when the user supplies
             // correct username and password.
-            Session? session = GetSession();
+            Session session = GetSession();
 
-            session.UserId = user.Id;
+            session.UserId = user.Id.ToString();
 
             user.latestSession = session;
 

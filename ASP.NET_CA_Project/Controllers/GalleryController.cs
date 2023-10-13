@@ -18,14 +18,18 @@ namespace ASP.NET_CA_Project.Controllers
         public IActionResult Index()
         {
             List<Item> allItems = (List<Item>)db.Item.ToList();
+            allItems.Sort((a, b) => a.ItemName.CompareTo(b.ItemName));
             ViewBag.items = allItems;
 
-            List<Order> userOrders = GetUserOrders();
+            List <Order> userOrders = GetUserOrders();
             ViewBag.itemCountInCart = 0;
             foreach (Order order in userOrders)
             {
                 ViewBag.itemCountInCart = ViewBag.itemCountInCart + order.Count;
             }
+
+            ViewBag.isUserLoggedIn = IsSessionUserLoggedIn();
+            ViewBag.user = GetSessionUser();
 
             return View();
         }
