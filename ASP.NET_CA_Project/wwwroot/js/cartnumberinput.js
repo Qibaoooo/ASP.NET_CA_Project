@@ -13,12 +13,12 @@ window.onload = function () {
 
                 xhr.open("GET", ("/Cart/RemoveItem?itemId=" + inputId));
                 xhr.onreadystatechange = function () {
-                    if (xhr.readystate == 4 && xhr.status == 200) {
+                    console.log(xhr.readystate,xhr.status);
+                    if (xhr.status == 200) {
                         location.reload();
                     }
                 }
                 xhr.send();
-                location.reload();
             }
             else {
                 let data = {
@@ -31,14 +31,13 @@ window.onload = function () {
 
                 xhr.open("POST", "/Cart/ChangeItemCount");
                 xhr.setRequestHeader("Content-Type", "application/json; charset=utf8");
-                /* xhr.onreadystatechange = function () {
-                     if (xhr.readystate == 4 && xhr.status == 201) {
+                xhr.onreadystatechange = function () {
+                     if (xhr.status == 200) {
                          //let itemInfo = JSON.parse(xhr.responseText);
                          location.reload();
                      }
-                 }*/
+                 }
                 xhr.send(jsondata);
-                location.reload();
             }
         })
     }
