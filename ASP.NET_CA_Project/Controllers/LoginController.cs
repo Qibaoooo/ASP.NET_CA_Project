@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using ASP.NET_CA_Project.Database;
 using ASP.NET_CA_Project.Models;
 using Microsoft.AspNetCore.Mvc;
-using ASP.NET_CA_Project.Database;
-using ASP.NET_CA_Project.Models;
 using Microsoft.AspNetCore.Identity;
 
 

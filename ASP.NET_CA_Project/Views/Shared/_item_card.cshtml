@@ -6,7 +6,7 @@
 
 @{
     <div class="col-md-4">
-        <div class="card h-100 text-center">
+        <div class="card h-85 text-center">
             <img src="~/image/temp.jpg" class="card-img-top" alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title">
@@ -20,7 +20,7 @@
                     case "Gallery":
                         <p class="card-price"><strong>@Model.Price.ToString("C")</strong></p>
                         <a href="#"
-                           class="btn-add-to-cart btn btn-primary"
+                           class="btn-add-to-cart btn btn-secondary"
                            data-itemId=@Model.Id>Add to Cart</a>
                         break;
                     case "MyPurchases":
@@ -29,11 +29,9 @@
                            style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);border: 1px solid #000;">Download</a>
                         break;
                     case "Cart":
-                        //Tong Chang add view here
                         <a href="#"
-                           class="btn-remove-cart btn btn-primary"
-                           data-itemId="@Model.Id"
-                           style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);border: 1px solid #000;">Remove</a>
+                           class="btn-remove-cart btn btn-secondary"
+                           data-itemId="@Model.Id">Remove</a>
                         break;
                 }
             </div>

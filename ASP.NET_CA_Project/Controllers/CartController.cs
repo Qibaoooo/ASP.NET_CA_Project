@@ -14,14 +14,10 @@ namespace ASP.NET_CA_Project.Controllers
     {
         public CartController(ShopDBContext db):base(db)
         { }
-        // GET: /<controller>/
+        
         public IActionResult Index(Guid? userID)
         {
-            User currentUser = GetSessionUser();
-            List<Order> allOrders = (List<Order>)db.Order.ToList();
-			List<Order> userOrders = allOrders.FindAll(Order => Order.User.Id == currentUser.Id);
-
-			ViewBag.Orders = userOrders;
+			ViewBag.Orders = GetUserOrders();
 
             return View();
         }
@@ -43,10 +39,6 @@ namespace ASP.NET_CA_Project.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
-                    //        "inputId": inputId,
-                    //"userInput": userInput
 
         [HttpPost]
         //public IActionResult ChangeItemCount([FromBody]ChangeCountData data)
@@ -72,25 +64,34 @@ namespace ASP.NET_CA_Project.Controllers
 
         public IActionResult Checkout()
         {
-            if ((string?)ViewData["isLoggedIn"] == "true")
+            if (!IsSessionUserLoggedIn())
             {
-                var obj = new
-                {
-                    controller = "MyPurchases",
-                    action = "Index"
-                };
-                return RedirectToRoute(obj);
+                // On JS side, alert user "you must login"
+                return RedirectToAction(controllerName: "Login", actionName: "Index");
             }
-            else
+
+            User user = GetSessionUser();
+
+            if (user.Orders.Count() < 1)
             {
-                var obj = new
-                {
-                    controller = "Login",
-                    action = "LoginWithCart"
-                    //need more codes and logic
-                };
-                return RedirectToRoute(obj);
+                // On JS side, alert user "you must add items to cart first"
+                return RedirectToAction(controllerName: "Gallery", actionName: "Index");
             }
+
+            foreach (Order order in user.Orders)
+            {
+                for (int i = 0; i < order.Count; i++)
+                {
+                    PurchasedOrder newPaidOrder = new PurchasedOrder(order.Item, user);
+                    db.Add(newPaidOrder);
+                }
+
+                db.Remove(order);
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction(controllerName: "MyPurchases", actionName: "Index");
         }
 
 
