@@ -2,7 +2,6 @@
     ViewData["Title"] = "Cart";
     List<Order> orders = ViewBag.Orders;
 }
-<script src="~/js/cartnumberinput.js"></script>
 
 <div class="text-center">
     <h1 class="display-4">Cart</h1>
@@ -30,7 +29,7 @@
 							Quantity: 
 						</td>
 						<td>
-							<input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999"> 
+							<input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999" class="count"> 
                             @*@order.Count*@
 						</td>
                     </tr>
@@ -44,4 +43,4 @@
 
 
 </div>
-
+<script src="~/js/cartnumberinput.js"></script>

@@ -51,7 +51,7 @@ namespace ASP.NET_CA_Project.Controllers
             string itemId = data.inputId;
             int itemCount = data.userInput;
             User? sessionUser = GetSessionUser();
-            if (sessionUser == null) 
+            /*if (sessionUser == null) 
             {
                 var err = new
                 {
@@ -59,7 +59,7 @@ namespace ASP.NET_CA_Project.Controllers
                     Details = "Current session has no user in db. Something is wrong."
                 };
                 return StatusCode(500, err);
-            }
+            }*/
             Order? orderToChange = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
             orderToChange.Count = itemCount;
             db.SaveChanges();
