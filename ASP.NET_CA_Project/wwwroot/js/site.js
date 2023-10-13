@@ -11,6 +11,13 @@ $(document).ready(function () {
         }
     });
 
+
+    $("#LoginForm").on("submit", function (e){
+        e.preventDefault();
+        //Calling login action method
+        console.log("Login Clicked");
+    }
+
     function refreshCards(searchTerm) {
         $("#item-cards").children().each(function (index, element) {
             // for each item card, we check if
