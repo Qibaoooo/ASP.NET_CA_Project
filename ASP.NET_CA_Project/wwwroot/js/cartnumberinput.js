@@ -21,15 +21,15 @@ window.onload = function () {
                 xhr.send();
             }
             else {
-                let data = {
-                    "inputId": inputId,
-                    "userInput": userInput
-                };
-                var jsondata = JSON.stringify(data);
+                //let data = {
+                //    "inputId": inputId,
+                //    "userInput": userInput
+                //};
+                //var jsondata = JSON.stringify(data);
 
                 let xhr = new XMLHttpRequest();
 
-                xhr.open("POST", "/Cart/ChangeItemCount");
+                xhr.open("POST", `/Cart/ChangeItemCount?inputId=${inputId}&userInput=${userInput}`);
                 xhr.setRequestHeader("Content-Type", "application/json; charset=utf8");
                 xhr.onreadystatechange = function () {
                      if (xhr.status == 200) {
@@ -37,7 +37,7 @@ window.onload = function () {
                          location.reload();
                      }
                  }
-                xhr.send(jsondata);
+                xhr.send();
             }
         })
     }

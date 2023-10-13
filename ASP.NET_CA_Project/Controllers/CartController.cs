@@ -45,11 +45,15 @@ namespace ASP.NET_CA_Project.Controllers
         }
 
 
+                    //        "inputId": inputId,
+                    //"userInput": userInput
+
         [HttpPost]
-        public IActionResult ChangeItemCount([FromBody]ChangeCountData data)
+        //public IActionResult ChangeItemCount([FromBody]ChangeCountData data)
+        public IActionResult ChangeItemCount(string inputId, int userInput)
         {
-            string itemId = data.inputId;
-            int itemCount = data.userInput;
+            string itemId = inputId;
+            int itemCount = userInput;
             User? sessionUser = GetSessionUser();
             /*if (sessionUser == null) 
             {
