@@ -26,7 +26,7 @@ namespace ASP.NET_CA_Project.Controllers
             Session? session = db.Sessions.FirstOrDefault(sess => sess.Id == _sessionId);
             if (session == null)
             {
-                throw new Exception("Session err, check SessionTracker middleware");
+                throw new Exception("Session err, check SessionTracker middleware.");
             }
             return session;
         }
@@ -59,11 +59,19 @@ namespace ASP.NET_CA_Project.Controllers
             }
         }
 
-        protected List<PurchasedOrder> GetUserPurchasedOrder()
+        protected List<PurchasedOrder> GetUserPurchasedOrders()
         {
             // Get the list of paid orders of the current user.
             User user = GetSessionUser();
-            return user.PurchasedOrders.ToList();
+            if (user.PurchasedOrders != null)
+            {
+                return user.PurchasedOrders.ToList();
+            }
+            else
+            {
+                return new List<PurchasedOrder>();
+            }
+
         }
 
         protected bool IsSessionUserLoggedIn()

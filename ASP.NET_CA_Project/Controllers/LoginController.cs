@@ -23,22 +23,9 @@ namespace ASP.NET_CA_Project.Controllers
 
         public IActionResult Index()
         {
-            ViewData["isLoggedIn"] = (GetSessionUser().UserName != null);
-            return View();
-        }
-
-        public IActionResult AuthenticateUser(string username, string password) {
-            //Check if user is in database
-            User? user = db.User.FirstOrDefault(x => x.UserName == username);
-            //Check if session has an ongoing cart and user has an existing cart
-
-            if (user == null)
+            if (IsSessionUserLoggedIn())
             {
-                return Json(new { }); //User not valid, please try again rendered into login html
-            }
-            else if (user != null && user.Password == password)
-            { 
-                return Json(new { }); //Return success and redirect
+                return RedirectToAction(controllerName: "Gallery", actionName: "Index");
             }
             return View();
         }
