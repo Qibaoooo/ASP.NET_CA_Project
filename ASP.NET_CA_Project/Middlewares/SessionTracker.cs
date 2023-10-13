@@ -24,20 +24,25 @@ namespace ASP.NET_CA_Project.Middlewares
             // get session id of current request
             string _sessionId = httpContext.Session.Id;
 
-            // check if the session is already being tracked
-            if (!(db.Sessions.Any(sess => sess.Id == _sessionId)))
+            // check if the session is already being tracked in db
+            Session? sessionInDB = db.Sessions.FirstOrDefault(
+                sess => sess.Id == _sessionId
+                );
+
+            if (sessionInDB == null)
             {
-                // if not tracked, add it to db
+                // the session is not tracked yet, add it to db
                 Session newSession = new Session(_sessionId);
                 // create guest user for the session
                 User guest = new User();
-                newSession.UserId = guest.Id;
+                newSession.UserId = guest.Id.ToString();
+
+                Console.WriteLine($"guest user created: {guest.Id} for session {newSession.Id}");
 
                 // add & save
                 db.Add(guest);
                 db.Add(newSession);
                 db.SaveChanges();
-
             }
 
             httpContext.Session.SetString("tracked", "Yes");

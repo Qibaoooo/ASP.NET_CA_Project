@@ -13,6 +13,7 @@
     <None Remove="Views\MyPurchases\" />
     <None Remove="Database\" />
     <None Remove="Middlewares\" />
+    <None Remove="Views\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Gallery\" />
@@ -20,6 +21,7 @@
     <Folder Include="Views\MyPurchases\" />
     <Folder Include="Database\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="Views\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />

@@ -47,3 +47,7 @@ body {
     transform: scale(1.05) translateZ(0);
     text-shadow: 0 0 1px currentColor; 
 }
+
+#debug-table td * {
+    color: white; /* Primary color in Bootstrap */
+}

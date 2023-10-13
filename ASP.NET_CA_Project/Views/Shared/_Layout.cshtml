@@ -1,5 +1,15 @@
 ﻿@{
+    // Section for getting data from controllers/environment
     string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+
+    User user = ViewBag.user;
+    bool isUserLoggedIn = (ViewBag.isUserLoggedIn == true);
+
+    int itemCountInCart = (ViewBag.itemCountInCart == null) ? 0 : ViewBag.itemCountInCart;
+
+    string cartBadgeVisibitiy = (itemCountInCart > 0) ? "visible" : "hidden";
+
+    // Section for header logics
     string head_msg = "Team 11 Library Shop";
     string btn1_msg = "Login";
     string btn1_controller = "Login";
@@ -18,9 +28,9 @@
     }
     if (controllerName == "Gallery")
     {
-        if ((string?)ViewData["isLoggedIn"] == "true")
+        if (isUserLoggedIn)
         {
-            head_msg = "Hello, [UserName]";
+            head_msg = $"Hello, {user.UserName}";
             btn1_msg = "My Purchases";
             btn1_controller = "Mypurchases";
             btn2_msg = "Logout";
@@ -54,9 +64,6 @@
         btn2_controller = "Login";
         btn2_action = "Logout";
     }
-
-    int itemCountInCart = (ViewBag.itemCountInCart == null) ? 0 : ViewBag.itemCountInCart;
-    string cartBadgeVisibitiy= (itemCountInCart > 0) ? "visible" : "hidden";
 }
 <!DOCTYPE html>
 <html lang="en">
