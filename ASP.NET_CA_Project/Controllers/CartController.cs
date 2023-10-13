@@ -47,15 +47,6 @@ namespace ASP.NET_CA_Project.Controllers
             string itemId = inputId;
             int itemCount = userInput;
             User? sessionUser = GetSessionUser();
-            /*if (sessionUser == null) 
-            {
-                var err = new
-                {
-                    Message = "An internal server error occurred.",
-                    Details = "Current session has no user in db. Something is wrong."
-                };
-                return StatusCode(500, err);
-            }*/
             Order? orderToChange = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
             orderToChange.Count = itemCount;
             db.SaveChanges();

@@ -3,7 +3,6 @@
     List<Order> orders = ViewBag.Orders;
 }
 
-
 <div class="container">
     @if (orders.Count == 0)
     {
@@ -33,18 +32,14 @@
                             Quantity:
                         </td>
                         <td>
-                            <input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999" class="count">
-                            @*@order.Count*@
+                            <input type="number" value="@order.Count" id="@order.Item.Id"
+                            min="0" max="999" class="count" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </td>
                     </tr>
                 </table>
-
-
             </div>
         </div>
         i = i + 1;
     }
-
-
 </div>
 <script src="~/js/cartnumberinput.js"></script>
