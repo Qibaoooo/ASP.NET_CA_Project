@@ -46,7 +46,7 @@ namespace ASP.NET_CA_Project.Controllers
 
 
         [HttpPost]
-        public IActionResult ChangeItemCount([FromBody]dynamic data)
+        public IActionResult ChangeItemCount([FromBody]ChangeCountData data)
         {
             string itemId = data.inputId;
             int itemCount = data.userInput;
