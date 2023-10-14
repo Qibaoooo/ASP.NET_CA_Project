@@ -22,22 +22,22 @@ namespace ASP.NET_CA_Project.Controllers
             return View();
         }
 
-        public IActionResult RemoveItem(string itemId)
+        [HttpPost]
+        public IActionResult RemoveOrder(string itemId)
         {
-            User? sessionUser = GetSessionUser();
-            if (sessionUser == null)
+            // remove the order which has the item
+            // that matches the supplied itemId
+            List<Order> orders = GetUserOrders();
+            Order? orderToRemove = orders.FirstOrDefault(o => o.Item.Id.ToString() == itemId);
+            if (orderToRemove == null)
             {
-                var err = new
-                {
-                    Message = "An internal server error occurred.",
-                    Details = "Current session has no user in db. Something is wrong."
-                };
-                return StatusCode(500, err);
+                return Json(new { success = 0, err = "item or found in user orders." });
             }
-            Order? orderToDelete = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
-            db.Order.Remove(orderToDelete);
+
+            db.Order.Remove(orderToRemove);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Json(new { success = 1, orderRemoved = orderToRemove.Id });
         }
 
         [HttpPost]
