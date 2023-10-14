@@ -2,7 +2,7 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="pt-6">
+<div class="pt-6 d-flex flex-column align-items-center">
     <div class="container bg-dark col-md-3 border rounded-4 ">
         <div class="row">
             <h2 class="text-center w-100">Member Login</h2>
@@ -30,9 +30,16 @@
                 <div class="d-flex justify-content-center w-100 mb-3">
                     <button id="loginbutton " type="submit" class="btn bg-dark custom-login-btn w-50">Login</button>
                 </div>
-
             </form>
         </div>
-
     </div>
+
+    <div id="loginToast" class="toast text-center mt-5">
+        <div class="toast-body" style="color: yellow">
+            <strong>
+                Unknown Error.
+            </strong>
+        </div>
+    </div>
+
 </div>

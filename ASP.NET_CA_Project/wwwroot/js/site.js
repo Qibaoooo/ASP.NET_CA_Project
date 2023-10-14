@@ -65,8 +65,6 @@
         let username = $("#username").val();
         let password = $("#password").val();
         console.log("Login Clicked");
-        console.log(username);
-        console.log(password);
         //Calling login action method
 
         $.ajax({
@@ -80,8 +78,20 @@
                 console.log("Login success!");
                 window.location.href = "/Gallery/Index";
             },
-            error: function (xhr, status, error) {
-                console.error("Login falied:", error);
+            error: function (data) {
+                console.log(data.responseText);
+                
+
+                $("#loginToast").children(".toast-body").text(data.responseText);
+                var loginToast = new bootstrap.Toast($("#loginToast"));
+                loginToast.show();
+                
+
+                //document.getElementById("toastbtn").onclick = function () {
+                //    var myAlert = document.getElementById('toastNotice');//select id of toast
+                //    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+                //    bsAlert.show();//show it
+
             },
         });
     });
