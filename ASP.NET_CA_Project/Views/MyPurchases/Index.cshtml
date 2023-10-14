@@ -1,20 +1,16 @@
 ﻿@{
     ViewData["Title"] = "My Purchases";
-    var groupedOrders = ViewBag.groupedOrders;
-
-    //Item = grouped.First().Item,
-    //                                  DateTime = grouped.First().DateTime,
-    //                                  Quantity = grouped.Count(),
-    //                                  ActivationCodes = grouped.Select(p => p.ActivationCode).ToList()
-
+    var groupedOrders = ViewBag.groupedOrders; // dynamic type from linq
+    List<PurchasedOrder> allPurchasedOrders = ViewBag.allPurchasedOrders;
 }
 
-<div class="text-center">
-    <h1 class="display-4">My Purchases</h1>
-</div>
-
-
 <div class="container">
+    @if (allPurchasedOrders.Count() == 0)
+    {
+        <div class="text-center pt-6">
+            <h4>Such emptiness. Please buy some items first.</h4>
+        </div>
+    }
     @foreach (var order in groupedOrders)
     {
         <div class="row mt-4 align-items-center">
@@ -22,7 +18,7 @@
             <partial name="_item_card" model="order.Item" />
             <div style="width: 0.1%;"></div>
             <div class="col-md-5">
-                <table >
+                <table>
                     <tr>
                         <td>
                             Purchased On:
