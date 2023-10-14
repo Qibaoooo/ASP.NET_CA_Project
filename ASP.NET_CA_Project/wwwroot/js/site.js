@@ -64,15 +64,19 @@
 
         let username = $("#username").val();
         let password = $("#password").val();
-        console.log("Login Clicked");
-        //Calling login action method
+        let mergeCart = $('#mergeCartCheck')[0].checked;
 
+        callLoginAction(username, password, mergeCart);
+    });
+
+    function callLoginAction(username, password, mergeCart) {
         $.ajax({
             type: "POST",
             url: "/Login/UserLogin",
             data: {
                 userName: username,
                 password: password,
+                mergeCart: mergeCart
             },
             success: function (response) {
                 console.log("Login success!");
@@ -80,21 +84,14 @@
             },
             error: function (data) {
                 console.log(data.responseText);
-                
 
                 $("#loginToast").children(".toast-body").text(data.responseText);
                 var loginToast = new bootstrap.Toast($("#loginToast"));
                 loginToast.show();
-                
-
-                //document.getElementById("toastbtn").onclick = function () {
-                //    var myAlert = document.getElementById('toastNotice');//select id of toast
-                //    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
-                //    bsAlert.show();//show it
-
             },
         });
-    });
+    }
+
     /* END of login page js */
     /* -------------------- */
 
@@ -116,7 +113,6 @@
                 console.error("Error removing item from cart:", error);
             },
         });
-        location.reload();
     });
 
     let inputFields = document.getElementsByClassName("orderCountInput");
