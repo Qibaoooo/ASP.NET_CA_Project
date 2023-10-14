@@ -25,6 +25,10 @@ namespace ASP.NET_CA_Project.Controllers
             {
                 return RedirectToAction(controllerName: "Gallery", actionName: "Index");
             }
+
+            List<Order> orders = GetUserOrders();
+            ViewData["ordersInCart"] = orders;
+
             return View();
         }
 
@@ -53,7 +57,7 @@ namespace ASP.NET_CA_Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserLogin(string userName, string password, string redirectPath)
+        public IActionResult UserLogin(string userName, string password, bool mergeCart, string redirectPath)
         {
             if (userName == null)
             {
@@ -92,8 +96,11 @@ namespace ASP.NET_CA_Project.Controllers
                 };
             }
 
-            // merge carts if necessary;
-            CheckAndMergeCart(user);
+            if (mergeCart == true)
+            {
+                // merge carts if necessary;
+                CheckAndMergeCart(user);
+            }
 
             // all checks passed, log the user in now.
             UpdateUserSessionInDB(user);

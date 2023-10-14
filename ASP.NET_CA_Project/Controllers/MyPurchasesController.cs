@@ -19,10 +19,10 @@ namespace ASP.NET_CA_Project.Controllers
         
         public IActionResult Index(Guid? userId)
         {
-            List<PurchasedOrder> AllPurchasedOrders = GetUserPurchasedOrders();
+            List<PurchasedOrder> allPurchasedOrders = GetUserPurchasedOrders();
 
-            var groupedOrders = from order in AllPurchasedOrders
-                                  group order by order.Item.Id into grouped
+            var groupedOrders = from order in allPurchasedOrders
+                                group order by order.Item.Id into grouped
                                   select new
                                   {
                                       Item = grouped.First().Item,
@@ -31,6 +31,7 @@ namespace ASP.NET_CA_Project.Controllers
                                       ActivationCodes = grouped.Select(p => p.ActivationCode).ToList()
                                   };
 
+            ViewBag.allPurchasedOrders = allPurchasedOrders;
             ViewBag.groupedOrders = groupedOrders;
 
             return View();
