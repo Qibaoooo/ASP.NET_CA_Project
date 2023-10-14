@@ -99,21 +99,26 @@
     /* --------------------- */
     /* START of cart page js */
     $(".btn-remove-cart").click(function (e) {
-        let itemId = $(this).attr("data-itemId");
+        e.preventDefault();
 
-        $.ajax({
-            type: "POST",
-            url: "/Cart/RemoveOrder",
-            data: { itemId: itemId },
-            success: function (response) {
-                console.log("Item removed successfully!");
-                window.location.href = "/Cart/Index";
-            },
-            error: function (xhr, status, error) {
-                console.error("Error removing item from cart:", error);
-            },
-        });
-    });
+        var userResponse = window.confirm("Removing item, are you sure?");
+        if (userResponse) {
+
+            let itemId = $(this).attr("data-itemId");
+            $.ajax({
+                type: "POST",
+                url: "/Cart/RemoveOrder",
+                data: { itemId: itemId },
+                success: function (response) {
+                    console.log("Item removed successfully!");
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error removing item from cart:", error);
+                }
+            })
+        }
+    })
 
     let inputFields = document.getElementsByClassName("orderCountInput");
 
@@ -151,8 +156,5 @@
             }
         });
     }
-    /* END of cart page js */
-    /* ------------------- */
-
-
+    
 });

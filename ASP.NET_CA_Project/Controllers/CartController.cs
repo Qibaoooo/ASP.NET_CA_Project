@@ -48,7 +48,7 @@ namespace ASP.NET_CA_Project.Controllers
             Order? orderToChange = GetUserOrders().FirstOrDefault(o => o.Item.Id.ToString() == itemId);
             if (orderToChange == null)
             {
-                return Json(new { success = 0, err = "item or found in user orders." });
+                return Json(new { success = 0, err = "item not found in user orders." });
             }
 
             if (newCount == 0)
