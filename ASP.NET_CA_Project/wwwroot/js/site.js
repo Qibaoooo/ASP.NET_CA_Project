@@ -107,16 +107,16 @@
             let itemId = $(this).attr("data-itemId");
             $.ajax({
                 type: "POST",
-                url: "/Cart/RemoveItem",
+                url: "/Cart/RemoveOrder",
                 data: { itemId: itemId },
                 success: function (response) {
                     console.log("Item removed successfully!");
+                    location.reload();
                 },
                 error: function (xhr, status, error) {
                     console.error("Error removing item from cart:", error);
                 }
             })
-            location.reload();
         }
     })
 
