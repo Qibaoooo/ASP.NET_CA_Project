@@ -1,9 +1,10 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
 
-$(document).ready(function () {
+    /* ------------------------ */
+    /* START of gallery page js */
     $("#search").keydown(function (e) {
-        if (e.keyCode === 13) { // Check if Enter key was pressed
+        if (e.keyCode === 13) {
+            // Check if Enter key was pressed
             e.preventDefault(); // Prevent the form from submitting
             var searchTerm = $(this).val().toLowerCase();
 
@@ -12,23 +13,25 @@ $(document).ready(function () {
     });
 
     function refreshCards(searchTerm) {
-        $("#item-cards").children().each(function (index, element) {
-            // for each item card, we check if
-            // its text and title contains the search term.
-            // if not, we hide it.
+        $("#item-cards")
+            .children()
+            .each(function (index, element) {
+                // for each item card, we check if
+                // its text and title contains the search term.
+                // if not, we hide it.
 
-            var text = $(this).find(".card-text").text().toLowerCase();
-            var title = $(this).find(".card-title").text().toLowerCase();
-            $(this).show();
+                var text = $(this).find(".card-text").text().toLowerCase();
+                var title = $(this).find(".card-title").text().toLowerCase();
+                $(this).show();
 
-            if (searchTerm === "") {
-                return;
-            }
+                if (searchTerm === "") {
+                    return;
+                }
 
-            if (!(text.includes(searchTerm) || title.includes(searchTerm))) {
-                $(this).hide();
-            }
-        });
+                if (!(text.includes(searchTerm) || title.includes(searchTerm))) {
+                    $(this).hide();
+                }
+            });
     }
 
     $(".btn-add-to-cart").click(function (e) {
@@ -42,15 +45,20 @@ $(document).ready(function () {
             data: { itemId: itemId },
             success: function (response) {
                 console.log("Item added to cart successfully!");
-                $('#cart-badge').html(parseInt($('#cart-badge').html(), 10) + 1)
-                $('#cart-badge').css('visibility', 'visible');
+                $("#cart-badge").html(parseInt($("#cart-badge").html(), 10) + 1);
+                $("#cart-badge").css("visibility", "visible");
             },
             error: function (xhr, status, error) {
                 console.error("Error adding item to cart:", error);
-            }
+            },
         });
     });
+    /* END of gallery page js */
+    /* ---------------------- */
 
+
+    /* ---------------------- */
+    /* START of login page js */
     $("#LoginForm").submit(function (e) {
         e.preventDefault();
 
@@ -64,10 +72,9 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/Login/UserLogin",
-            data:
-            {
+            data: {
                 userName: username,
-                password: password
+                password: password,
             },
             success: function (response) {
                 console.log("Login success!");
@@ -75,10 +82,15 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.error("Login falied:", error);
-            }
+            },
         });
     });
+    /* END of login page js */
+    /* -------------------- */
 
+
+    /* --------------------- */
+    /* START of cart page js */
     $(".btn-remove-cart").click(function (e) {
         let itemId = $(this).attr("data-itemId");
 
@@ -92,9 +104,49 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.error("Error removing item from cart:", error);
-            }
-        })
+            },
+        });
         location.reload();
-        //e.preventDefault();
-    })
+    });
+
+    let inputFields = document.getElementsByClassName("orderCountInput");
+
+    // TODO: rewrite below function to use AJAX
+    for (var i = 0; i < inputFields.length; i++) {
+        inputFields[i].addEventListener("blur", function (event) {
+            var itemId = event.target.id;
+            var newCount = event.target.value;
+
+            if (newCount == 0) {
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "/Cart/RemoveOrder?itemId=" + itemId);
+                xhr.onreadystatechange = function () {
+                    console.log(xhr.readystate, xhr.status);
+                    if (xhr.status == 200) {
+                        location.reload();
+                    }
+                };
+                xhr.send();
+            } else {
+                let xhr = new XMLHttpRequest();
+
+                xhr.open(
+                    "POST",
+                    `/Cart/ChangeItemCount?itemId=${itemId}&newCount=${newCount}`
+                );
+                xhr.setRequestHeader("Content-Type", "application/json; charset=utf8");
+                xhr.onreadystatechange = function () {
+                    if (xhr.status == 200) {
+                        location.reload();
+                    }
+                };
+                xhr.send();
+            }
+        });
+    }
+    /* END of cart page js */
+    /* ------------------- */
+
+
 });

@@ -12,12 +12,12 @@ namespace ASP.NET_CA_Project.Controllers
 {
     public class CartController : BaseController
     {
-        public CartController(ShopDBContext db):base(db)
+        public CartController(ShopDBContext db) : base(db)
         { }
-        
+
         public IActionResult Index(Guid? userID)
         {
-			ViewBag.Orders = GetUserOrders();
+            ViewBag.Orders = GetUserOrders();
 
             return View();
         }
@@ -28,7 +28,9 @@ namespace ASP.NET_CA_Project.Controllers
             // remove the order which has the item
             // that matches the supplied itemId
             List<Order> orders = GetUserOrders();
-            Order? orderToRemove = orders.FirstOrDefault(o => o.Item.Id.ToString() == itemId);
+            Order? orderToRemove = orders.FirstOrDefault(
+                o => o.Item.Id.ToString() == itemId
+                );
             if (orderToRemove == null)
             {
                 return Json(new { success = 0, err = "item or found in user orders." });
@@ -41,25 +43,25 @@ namespace ASP.NET_CA_Project.Controllers
         }
 
         [HttpPost]
-        //public IActionResult ChangeItemCount([FromBody]ChangeCountData data)
-        public IActionResult ChangeItemCount(string inputId, int userInput)
+        public IActionResult ChangeItemCount(string itemId, int newCount)
         {
-            string itemId = inputId;
-            int itemCount = userInput;
-            User? sessionUser = GetSessionUser();
-            /*if (sessionUser == null) 
+            Order? orderToChange = GetUserOrders().FirstOrDefault(o => o.Item.Id.ToString() == itemId);
+            if (orderToChange == null)
             {
-                var err = new
-                {
-                    Message = "An internal server error occurred.",
-                    Details = "Current session has no user in db. Something is wrong."
-                };
-                return StatusCode(500, err);
-            }*/
-            Order? orderToChange = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
-            orderToChange.Count = itemCount;
+                return Json(new { success = 0, err = "item or found in user orders." });
+            }
+
+            if (newCount == 0)
+            {
+                db.Order.Remove(orderToChange);
+                db.SaveChanges();
+
+                return Json(new { success = 1, orderRemoved = orderToChange.Id });
+            }
+
+            orderToChange.Count = newCount;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { success = 1, orderChanged = orderToChange.Id, newOrderCount = newCount });
         }
 
         public IActionResult Checkout()
