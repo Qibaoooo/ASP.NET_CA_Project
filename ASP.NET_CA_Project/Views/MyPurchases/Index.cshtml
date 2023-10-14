@@ -1,12 +1,11 @@
 ﻿@{
     ViewData["Title"] = "My Purchases";
     var groupedOrders = ViewBag.groupedOrders;
-
     //Item = grouped.First().Item,
     //                                  DateTime = grouped.First().DateTime,
     //                                  Quantity = grouped.Count(),
     //                                  ActivationCodes = grouped.Select(p => p.ActivationCode).ToList()
-
+    var i = 0;
 }
 
 <div class="text-center">
@@ -17,6 +16,7 @@
 <div class="container">
     @foreach (var order in groupedOrders)
     {
+        i = i + 1;
         <div class="row mt-4 align-items-center">
             <div class="col-md-2"></div>
             <partial name="_item_card" model="order.Item" />
@@ -57,6 +57,12 @@
 
 
             </div>
+        </div>
+    }
+    @if(i == 0)
+    {
+        <div class="text-center pt-6">
+            <h4>Such emptiness. Go and buy anything you like!</h4>
         </div>
     }
 </div>
