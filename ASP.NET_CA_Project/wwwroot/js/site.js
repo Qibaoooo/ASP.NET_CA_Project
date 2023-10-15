@@ -152,7 +152,8 @@
                 else {
                     location.reload();
                 }
-            } else {
+            }
+            else {
                 $.ajax({
                     type: "POST",
                     url: "/Cart/ChangeItemCount",

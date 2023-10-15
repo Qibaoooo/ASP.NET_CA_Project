@@ -71,7 +71,19 @@ namespace ASP.NET_CA_Project.Controllers
             Order? existingOrder = db.Order.FirstOrDefault(o => o.User.Id == sessionUser.Id && o.Item.Id.ToString() == itemId);
             if (existingOrder != null)
             {
-                existingOrder.Count++;
+                if (existingOrder.Count < 999)
+                {
+                    existingOrder.Count++;
+                }
+                else
+                {
+                    var err = new
+                    {
+                        Message = "The quantity of the item in cart reaches the limit.",
+                        Details = "There are already 999 this items in cart."
+                    };
+                    return StatusCode(500, err);
+                }
             }
             else
             {
