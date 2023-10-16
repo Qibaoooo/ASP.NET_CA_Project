@@ -66,7 +66,15 @@
         btn2_controller = "Login";
         btn2_action = "Logout";
     }
-
+    if (controllerName == "Pay")
+    {
+        head_msg = "Team 11 Secure Payment Platform";
+        btn1_msg = "Check Cart";
+        btn1_controller = "Cart";
+        btn2_msg = "Pay";
+        btn2_controller = "Pay";
+        btn2_action = "Pay";
+    }
 }
 
 <!DOCTYPE html>
@@ -118,14 +126,13 @@
                                         </span>
                                     </button>
                                 }
-                                if (controllerName == "Cart")
+                                if (controllerName == "Cart" || controllerName == "Pay")
                                 {
                                     float totalPrice = 0f;
                                     foreach (var order in orders)
                                     {
                                         totalPrice = totalPrice + order.Item.Price * order.Count;
                                     }
-                                    //need javascript to calculate total
                                     <h6 style="padding-left: 20px;">
                                         <u>
                                             Total: @totalPrice.ToString("C")

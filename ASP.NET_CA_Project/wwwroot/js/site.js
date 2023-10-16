@@ -120,41 +120,55 @@
         }
     })
 
-    let inputFields = document.getElementsByClassName("orderCountInput");
+    //Not sure if it really works, need to try different situaltions
+    $(".orderCountInput").on("blur", function (event) {
+        var itemId = event.target.id;
+        var newCount = event.target.value;
 
-    // TODO: rewrite below function to use AJAX
-    for (var i = 0; i < inputFields.length; i++) {
-        inputFields[i].addEventListener("blur", function (event) {
-            var itemId = event.target.id;
-            var newCount = event.target.value;
-
+        //Though we set a limit in the input tag, that will not work when user enter number manually,
+        //it only works when user uses the arrows to change count, so I think it is necessary here
+        if (newCount > 999 || newCount < 0) {
+            alert("The quantity should be a number between 0 and 999!");
+            location.reload();
+        }
+        else {
+            newCount = Math.round(newCount);//prevent invaild input
             if (newCount == 0) {
-                let xhr = new XMLHttpRequest();
-
-                xhr.open("POST", "/Cart/RemoveOrder?itemId=" + itemId);
-                xhr.onreadystatechange = function () {
-                    console.log(xhr.readystate, xhr.status);
-                    if (xhr.status == 200) {
-                        location.reload();
-                    }
-                };
-                xhr.send();
-            } else {
-                let xhr = new XMLHttpRequest();
-
-                xhr.open(
-                    "POST",
-                    `/Cart/ChangeItemCount?itemId=${itemId}&newCount=${newCount}`
-                );
-                xhr.setRequestHeader("Content-Type", "application/json; charset=utf8");
-                xhr.onreadystatechange = function () {
-                    if (xhr.status == 200) {
-                        location.reload();
-                    }
-                };
-                xhr.send();
+                var userResponse = window.confirm("Quantity is set 0, item will be removed. Are you sure?");
+                if (userResponse) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Cart/RemoveOrder",
+                        data: { itemId: itemId },
+                        success: function (response) {
+                            console.log("Item removed successfully!");
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error removing item from cart:", error);
+                        }
+                    });
+                }
+                else {
+                    location.reload();
+                }
             }
-        });
-    }
-    
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/ChangeItemCount",
+                    data: { itemId: itemId, newCount: newCount },
+                    success: function (response) {
+                        console.log("Item count changed successfully!");
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error changing item count:", error);
+                    }
+                });
+            }
+        }
+    });
+    /*  END of cart page js  */
+    /* --------------------- */
 });
