@@ -2,14 +2,12 @@
 
     /* ------------------------ */
     /* START of gallery page js */
-    $("#search").keydown(function (e) {
-        if (e.keyCode === 13) {
-            // Check if Enter key was pressed
-            e.preventDefault(); // Prevent the form from submitting
-            var searchTerm = $(this).val().toLowerCase();
+    $("#search").on("keyup", function (e) {
 
-            refreshCards(searchTerm);
-        }
+        var searchTerm = $(this).val().toLowerCase();
+
+        refreshCards(searchTerm);
+
     });
 
     function refreshCards(searchTerm) {
