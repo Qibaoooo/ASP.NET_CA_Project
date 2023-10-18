@@ -42,6 +42,17 @@ namespace ASP.NET_CA_Project.Controllers
             return Json(new { success = 1, orderRemoved = orderToRemove.Id });
         }
 
+        public IActionResult RemoveAllOrder()
+        {
+            List<Order> orders = GetUserOrders();
+            foreach(Order order in orders) 
+            {
+                db.Order.Remove(order);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult ChangeItemCount(string itemId, int newCount)
         {
