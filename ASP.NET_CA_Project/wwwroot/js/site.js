@@ -80,7 +80,8 @@
             },
             success: function (response) {
                 console.log("Login success!");
-                window.location.href = "/Gallery/Index";
+                console.log(response.redirectController);
+                window.location.href = `/${response.redirectController}/Index`;
             },
             error: function (data) {
                 console.log(data.responseText);

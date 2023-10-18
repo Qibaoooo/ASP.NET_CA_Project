@@ -19,7 +19,7 @@ namespace ASP.NET_CA_Project.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string redirect_url)
         {
             if (IsSessionUserLoggedIn())
             {
@@ -57,7 +57,7 @@ namespace ASP.NET_CA_Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserLogin(string userName, string password, bool mergeCart, string redirectPath)
+        public IActionResult UserLogin(string userName, string password, bool mergeCart)
         {
             if (userName == null)
             {
@@ -109,14 +109,9 @@ namespace ASP.NET_CA_Project.Controllers
             // RemoveGuestUserFromDB();
 
             // redirect to previous page
-            if (redirectPath != null)
-            {
-                if (redirectPath.ToLower() == "cart")
-                {
-                    return RedirectToAction(controllerName: "Cart", actionName: "Index");
-                }
-            }
-            return RedirectToAction(controllerName: "Gallery", actionName: "Index");
+            string? redirectController = HttpContext.Session.GetString("redirectController");
+            return Json(new { redirectController = (redirectController == null) ? "Gallery" : redirectController });
+
         }
 
         private void UpdateUserSessionInDB(User user)
