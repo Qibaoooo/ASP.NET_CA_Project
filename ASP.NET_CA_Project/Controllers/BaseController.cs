@@ -51,7 +51,9 @@ namespace ASP.NET_CA_Project.Controllers
             User user = GetSessionUser();
             if (user.Orders != null)
             {
-                return user.Orders.ToList();
+                List<Order> orders = user.Orders.ToList();
+                orders.Sort((a, b) => a.Item.ItemName.CompareTo(b.Item.ItemName));
+                return orders;
             }
             else
             {
@@ -65,7 +67,9 @@ namespace ASP.NET_CA_Project.Controllers
             User user = GetSessionUser();
             if (user.PurchasedOrders != null)
             {
-                return user.PurchasedOrders.ToList();
+                List<PurchasedOrder> orders = user.PurchasedOrders.ToList();
+                orders.Sort((a, b) => a.Item.ItemName.CompareTo(b.Item.ItemName));
+                return orders;
             }
             else
             {
