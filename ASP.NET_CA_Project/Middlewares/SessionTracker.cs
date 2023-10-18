@@ -45,9 +45,25 @@ namespace ASP.NET_CA_Project.Middlewares
                 db.SaveChanges();
             }
 
+            TrackRedirectUrl(httpContext, db);
+
             httpContext.Session.SetString("tracked", "Yes");
 
             return _next(httpContext);
+        }
+
+        private void TrackRedirectUrl(HttpContext httpContext, ShopDBContext db)
+        {
+            string controllerName = (string)httpContext.GetRouteValue("controller");
+
+            // used later in Login controller
+            // if user is visiting Login page, do NOT update.
+            if (controllerName != "Login")
+            {
+                httpContext.Session.SetString("redirectController", controllerName);
+            }
+
+            return;
         }
     }
 
