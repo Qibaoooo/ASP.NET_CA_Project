@@ -1,4 +1,11 @@
-﻿.navbar {
+﻿header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar {
     background-color: var(--bs-primary);
 }
 

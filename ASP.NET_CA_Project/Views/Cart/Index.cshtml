@@ -10,33 +10,41 @@
             <h4>Such emptiness. Please add some items from gallery.</h4>
         </div>
     }
-    @foreach (var order in orders)
+    else
     {
-        <div class="row mt-4 align-items-center">
-            <div class="col-md-2"></div>
-            <partial name="_item_card" model="order.Item" />
-            <div style="width: 0.1%;"></div>
-            <div class="col-md-5">
-                <table>
-                    <tr>
-                        <td>
-                            Price:
-                        </td>
-                        <td>
-                            @((order.Item.Price * order.Count).ToString("C"))
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Quantity:
-                        </td>
-                        <td>
-                            <input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999" 
-                            class="orderCountInput" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                        </td>
-                    </tr>
-                </table>
+        @foreach (var order in orders)
+        {
+            <div class="row mt-4 align-items-center">
+                <div class="col-md-2"></div>
+                <partial name="_item_card" model="order.Item" />
+                <div style="width: 0.1%;"></div>
+                <div class="col-md-5">
+                    <table>
+                        <tr>
+                            <td>
+                                Price:
+                            </td>
+                            <td>
+                                @((order.Item.Price * order.Count).ToString("C"))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Quantity:
+                            </td>
+                            <td>
+                                <input type="number" value="@order.Count" id="@order.Item.Id" min="0" max="999" 
+                                class="orderCountInput" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
+        }
+        <div style="text-align: center; align-items: center;margin-top: 30px">
+            <a href="#" class="btn-remove-all-cart btn btn-secondary" style="width:70%">
+				<span>Remove All</span>
+            </a>
         </div>
     }
 </div>

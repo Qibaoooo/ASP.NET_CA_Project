@@ -119,6 +119,24 @@
         }
     })
 
+    $(".btn-remove-all-cart").click(function (e) {
+        e.preventDefault();
+        var userResponse = window.confirm("Clearing cart, are you sure?");
+        if (userResponse) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/RemoveAllOrder",
+                success: function (response) {
+                    console.log("Item removed successfully!");
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error removing item from cart:", error);
+                }
+            })
+        }
+    })
+
     //Not sure if it really works, need to try different situaltions
     $(".orderCountInput").on("blur", function (event) {
         var itemId = event.target.id;
