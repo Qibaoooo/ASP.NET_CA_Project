@@ -2,12 +2,17 @@
 @* Checking for type of pages: Gallery, Cart, Purchased History *@
 @{
     string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    
 }
 
 @{
     <div class="col-md-4">
-        <div class="card h-85 text-center">
-            <img src="~/image/temp.jpg" class="card-img-top" alt="Product Image">
+		<div class="card h-85 text-center">
+        @{
+			string itemname = Model.ItemName + ".jpg";
+            itemname = itemname.Trim('.');
+         }
+            <img src="~/image/@itemname" class="card-img-top" alt="Product Image" width="534" height="360">
             <div class="card-body">
                 <h5 class="card-title">
                     <u>
