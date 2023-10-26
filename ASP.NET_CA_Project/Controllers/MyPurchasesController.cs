@@ -19,6 +19,11 @@ namespace ASP.NET_CA_Project.Controllers
         
         public IActionResult Index(Guid? userId)
         {
+            if (!IsSessionUserLoggedIn())
+            {
+                return RedirectToAction(controllerName: "Gallery", actionName: "Index");
+            }
+
             List<PurchasedOrder> allPurchasedOrders = GetUserPurchasedOrders();
 
             var groupedOrders = from order in allPurchasedOrders

@@ -14,6 +14,11 @@ namespace ASP.NET_CA_Project.Controllers
 
         public IActionResult Index(Guid? userID)
         {
+            if (!IsSessionUserLoggedIn())
+            {
+                return RedirectToAction(controllerName: "Gallery", actionName: "Index");
+            }
+
             ViewBag.Orders = GetUserOrders();
 
             return View();

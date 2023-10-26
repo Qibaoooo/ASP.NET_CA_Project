@@ -58,7 +58,7 @@ namespace ASP.NET_CA_Project.Middlewares
 
             // used later in Login controller
             // if user is visiting Login page, do NOT update.
-            if (controllerName != "Login")
+            if (controllerName != "Login" && controllerName != null)
             {
                 httpContext.Session.SetString("redirectController", controllerName);
             }
