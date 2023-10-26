@@ -105,28 +105,22 @@ namespace ASP.NET_CA_Project.Controllers
             // all checks passed, log the user in now.
             UpdateUserSessionInDB(user);
 
-            // remove the guest user
-            // RemoveGuestUserFromDB();
-
-            // redirect to previous page
+            // redirect to previous page:
+            // if the current session does not have a 'redirectController' recorded,
+            // we redirect the user to Gallery.
+            // if the current session have a 'redirectController' recorded,
+            // use it as the redirect destination.
             string? redirectController = HttpContext.Session.GetString("redirectController");
             return Json(new { redirectController = (redirectController == null) ? "Gallery" : redirectController });
-
         }
 
         private void UpdateUserSessionInDB(User user)
         {
             Session guestSession = GetSession();
+
             guestSession.UserId = user.Id.ToString();
             user.latestSession = guestSession;
 
-            db.SaveChanges();
-        }
-
-        private void RemoveGuestUserFromDB()
-        {
-            User sessionUser = GetSessionUser();
-            db.Remove(sessionUser);
             db.SaveChanges();
         }
 
@@ -134,9 +128,9 @@ namespace ASP.NET_CA_Project.Controllers
         {
             User guest = GetSessionUser();
 
-            // Now, what we do here is check if the sessionUser
+            // Now, what we do here is check if the guest
             // has any orders.
-            // If it has, we move them to the userInDB's orders.
+            // If it has, we move them to the logged-in user's orders.
 
             if (guest.Orders == null)
             {

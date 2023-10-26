@@ -54,7 +54,7 @@ namespace ASP.NET_CA_Project.Middlewares
 
         private void TrackRedirectUrl(HttpContext httpContext, ShopDBContext db)
         {
-            string controllerName = (string)httpContext.GetRouteValue("controller");
+            string? controllerName = (string?)httpContext.GetRouteValue("controller");
 
             // used later in Login controller
             // if user is visiting Login page, do NOT update.

@@ -6,7 +6,9 @@ using ASP.NET_CA_Project.Database;
 using ASP.NET_CA_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+// This controller is purely for debugging purpose.
+// not supposed to be serving this route in production.
+// only use this when developing.
 
 namespace ASP.NET_CA_Project.Controllers
 {

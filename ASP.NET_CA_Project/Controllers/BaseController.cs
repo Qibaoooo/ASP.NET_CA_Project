@@ -6,7 +6,7 @@ using ASP.NET_CA_Project.Database;
 using ASP.NET_CA_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+// A base controller for common methods and attributes.
 
 namespace ASP.NET_CA_Project.Controllers
 {
@@ -82,19 +82,6 @@ namespace ASP.NET_CA_Project.Controllers
         {
             User user = GetSessionUser();
             return (user.UserName != null);
-        }
-
-        protected void LoginUser(User user)
-        {
-            // call this method when the user supplies
-            // correct username and password.
-            Session session = GetSession();
-
-            session.UserId = user.Id.ToString();
-
-            user.latestSession = session;
-
-            db.SaveChanges();
         }
     }
 }

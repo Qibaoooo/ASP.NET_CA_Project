@@ -91,20 +91,7 @@ namespace ASP.NET_CA_Project.Controllers
                 return RedirectToAction(controllerName: "Gallery", actionName: "Index");
             }
 
-            /*foreach (Order order in user.Orders)
-            {
-                for (int i = 0; i < order.Count; i++)
-                {
-                    PurchasedOrder newPaidOrder = new PurchasedOrder(order.Item, user);
-                    db.Add(newPaidOrder);
-                }
-
-                db.Remove(order);
-            }
-
-            db.SaveChanges();*/
             return RedirectToAction(controllerName: "Pay", actionName: "Index");
-            //return RedirectToAction(controllerName: "MyPurchases", actionName: "Index");
         }
 
     }
